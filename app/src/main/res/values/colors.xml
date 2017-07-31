@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#009688</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="tab_checked">@color/colorPrimaryDark</color>
+    <color name="tab_unchecked">#757575</color>
+    <color name="app_color_bg">#F2F2F2</color>
+    <color name="pop_bg">#2F000000</color>
+
+
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.xiaocao.weiyue.ui.user.AboutActivity">
+
+    <include layout="@layout/include_title" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_color_bg"
+        android:padding="10dp"
+        android:text="关于微阅" />
+
+    <TextView
+        android:id="@+id/tvAboutProject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:lineSpacingExtra="10dp"
+        android:text="微阅是一款集新闻，视频和妹子的阅读类软件。如果您喜欢,欢迎star。开源地址:https://github.com/DBxiaocao" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_color_bg"
+        android:padding="10dp"
+        android:text="关于作者" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:lineSpacingExtra="10dp"
+        android:text="Android Developer一枚,开源爱好者。\n联系方式:QQ3139694386" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_color_bg"
+        android:padding="10dp"
+        android:text="Thanks" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:lineSpacingExtra="10dp"
+        android:text="BaseRecyclerViewAdapterHelper,ButterKnife,eventBus,greenDao,RxJava,RxAndroid,photoView,logger,OkHttp,Retrofit,fastJson,Glide,Gank.io" />
+
+</LinearLayout>
