@@ -15,6 +15,7 @@ import com.xiaocao.weiyue.Constants;
 import com.xiaocao.weiyue.R;
 import com.xiaocao.weiyue.dao.CollectionDao;
 import com.xiaocao.weiyue.model.CollectionVo;
+import com.xiaocao.weiyue.ui.adapter.CommAdapter;
 import com.xiaocao.weiyue.ui.home.detail.NewsDetailActivity;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class CollectionActivity extends BaseActivity implements SwipeRefreshLayo
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
     //    private MyAdapter myAdapter;
-    private CollectionAdapter adapter;
+    private CommAdapter<CollectionVo> adapter;
     private int isNews = 0;
 
     @Override
@@ -52,7 +53,14 @@ public class CollectionActivity extends BaseActivity implements SwipeRefreshLayo
     @Override
     protected void initInstance() {
         List<CollectionVo> dbs = CollectionDao.queryAll();
-        adapter = new CollectionAdapter(dbs);
+        adapter=new CommAdapter<>(R.layout.list_item_news,dbs);
+        adapter.setOnCallBackData(new CommAdapter.OnCallBackData<CollectionVo>() {
+            @Override
+            public void convertView(BaseViewHolder helper, CollectionVo item) {
+                helper.setText(R.id.tvNewsTitle, item.getTitle());
+                GlideUtils.loadImageView(activity, item.getImgUrl(), (ImageView) helper.getView(R.id.ivNews));
+            }
+        });
         recycler.setAdapter(adapter);
         swipeRefresh.setOnRefreshListener(this);
         adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
@@ -78,7 +86,7 @@ public class CollectionActivity extends BaseActivity implements SwipeRefreshLayo
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_collection, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -93,7 +101,7 @@ public class CollectionActivity extends BaseActivity implements SwipeRefreshLayo
                 onRefresh();
                 break;
         }
-        return true;
+        return false;
     }
 
     @Override

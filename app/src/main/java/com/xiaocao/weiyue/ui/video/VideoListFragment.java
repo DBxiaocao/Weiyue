@@ -23,9 +23,6 @@ import x.lib.utils.ToastUtils;
 
 import com.xiaocao.weiyue.Constants;
 import com.xiaocao.weiyue.R;
-import com.xiaocao.weiyue.dao.CollectionDao;
-import com.xiaocao.weiyue.helper.PresenterFactory;
-import com.xiaocao.weiyue.model.CollectionVo;
 import com.xiaocao.weiyue.model.Video;
 
 import x.lib.ui.BaseEvent;

@@ -176,9 +176,6 @@ public class HttpUtils {
 
     /*异步请求*/
     public static Observable<ResponseResult> async(final Object reqObj) {
-
-
-
         return Observable.create(new ObservableOnSubscribe<ResponseResult>() {
             @Override
             public void subscribe(@NonNull final ObservableEmitter<ResponseResult> subscriber) throws Exception {
@@ -217,7 +214,7 @@ public class HttpUtils {
                         subscriber.onComplete();
                 }
             }
-        }).subscribeOn(Schedulers.newThread());
+        });
     }
 
 

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import butterknife.Bind;
 import x.lib.ui.BaseFragment;
+import x.lib.ui.BaseMvpFragment;
 import x.lib.utils.GlideUtils;
 import x.lib.utils.ToastUtils;
 
@@ -20,17 +21,15 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.orhanobut.logger.Logger;
 import com.xiaocao.weiyue.Constants;
 import com.xiaocao.weiyue.R;
-import com.xiaocao.weiyue.helper.PresenterFactory;
 import com.xiaocao.weiyue.model.Pics;
 import x.lib.ui.BaseEvent;
 import com.xiaocao.weiyue.model.event.PicEvent;
 import com.xiaocao.weiyue.model.request.PicRequest;
 import com.xiaocao.weiyue.presenter.IPicPresenter;
+import com.xiaocao.weiyue.ui.adapter.CommAdapter;
 import com.xiaocao.weiyue.ui.adapter.MyBaseAdapter;
 import x.lib.utils.EventBusUtil;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +40,12 @@ import java.util.List;
  * date: 17/6/30 10:20
  */
 
-public class PictureFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class PictureFragment extends BaseMvpFragment<PicPresenterImpl> implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener,PicContract.IView {
     @Bind(R.id.recycler)
     RecyclerView recycler;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
-    private IPicPresenter iPicPresenter;
-    private PicAdapter picAdapter;
+    private CommAdapter<Pics> picAdapter;
     private int page = 1;
     private List<Pics> picses = new ArrayList<>();
 
@@ -58,8 +56,13 @@ public class PictureFragment extends BaseFragment implements SwipeRefreshLayout.
 
     @Override
     protected void initInstance() {
-        iPicPresenter = PresenterFactory.getListPicPresenter();
-        picAdapter = new PicAdapter(R.layout.grid_item_pic, picses);
+        picAdapter=new CommAdapter<>(R.layout.grid_item_pic,picses);
+        picAdapter.setOnCallBackData(new CommAdapter.OnCallBackData<Pics>() {
+            @Override
+            public void convertView(BaseViewHolder helper, Pics item) {
+                GlideUtils.loadImageView(activity, item.getImgUrl(), (ImageView) helper.getView(R.id.ivPic));
+            }
+        });
         recycler.setAdapter(picAdapter);
         recycler.setLayoutManager(new GridLayoutManager(activity, 2));
         swipeRefresh.setOnRefreshListener(this);
@@ -83,15 +86,10 @@ public class PictureFragment extends BaseFragment implements SwipeRefreshLayout.
     }
 
     @Override
-    protected boolean isRegisterEventBus() {
-        return true;
-    }
-
-    @Override
     public void onRefresh() {
         page = 1;
         swipeRefresh.setRefreshing(true);
-        iPicPresenter.loadPic(new PicRequest().setPager_offset(page));
+        mPresenter.getPicList(new PicRequest().setPager_offset(page));
     }
 
     @Override
@@ -99,52 +97,28 @@ public class PictureFragment extends BaseFragment implements SwipeRefreshLayout.
         if (picAdapter.getData().size() < 10) {
             return;
         }
-        iPicPresenter.loadPic(new PicRequest().setPager_offset(page));
+        mPresenter.getPicList(new PicRequest().setPager_offset(page));
     }
 
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(PicEvent event) {
-        Logger.e("打印了数据" + event.code);
-        switch (event.code) {
-            case BaseEvent.code_success:
-                break;
-            case BaseEvent.code_load_err:
-                picAdapter.loadMoreEnd();
-                break;
-            case BaseEvent.code_refresh:
-                page++;
-                swipeRefresh.setRefreshing(false);
-                picAdapter.getData().clear();
-                picAdapter.addData((List<Pics>) event.data);
-                break;
-            case BaseEvent.code_load:
-                page++;
-                picAdapter.addData((List<Pics>) event.data);
-                picAdapter.loadMoreComplete();
-                break;
-            case BaseEvent.code_err:
-                ToastUtils.showShort(activity, (String) event.data);
-                break;
-        }
+
+    @Override
+    public void onErrMsg(String errMsg) {
+        ToastUtils.showShort(activity,errMsg);
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        EventBusUtil.unregister(this);
+    public void picReFresh(List<Pics> list) {
+        page++;
+        swipeRefresh.setRefreshing(false);
+        picAdapter.setNewData(list);
     }
 
-
-    private class PicAdapter extends MyBaseAdapter<Pics, BaseViewHolder> {
-        public PicAdapter(@LayoutRes int layoutResId, @Nullable List<Pics> data) {
-            super(layoutResId, data);
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, Pics item) {
-            GlideUtils.loadImageView(activity, item.getImgUrl(), (ImageView) helper.getView(R.id.ivPic));
-        }
+    @Override
+    public void picLoad(List<Pics> list) {
+        page++;
+        picAdapter.addData(list);
+        picAdapter.loadMoreComplete();
     }
 
 }
