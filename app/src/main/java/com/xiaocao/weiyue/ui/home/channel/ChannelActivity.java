@@ -1,4 +1,4 @@
-package com.xiaocao.weiyue.ui.home;
+package com.xiaocao.weiyue.ui.home.channel;
 
 import android.graphics.Color;
 import android.support.annotation.LayoutRes;
@@ -25,6 +25,7 @@ import x.lib.ui.BaseEvent;
 import com.xiaocao.weiyue.model.event.ChannelEvent;
 import com.xiaocao.weiyue.ui.adapter.MyBaseAdapter;
 
+import x.lib.ui.BaseMvpActivity;
 import x.lib.utils.EventBusUtil;
 
 import x.lib.ui.BaseActivity;
@@ -46,7 +47,7 @@ import butterknife.Bind;
  * date: 17/7/4 16:46
  */
 
-public class ChannelActivity extends BaseActivity {
+public class ChannelActivity extends BaseMvpActivity<ChannelPresenter> implements ChannelContract.IView {
     private static final String TAG = "ChannelActivity";
     @Bind(R.id.checkRecycler)
     RecyclerView checkRecycler;
@@ -77,47 +78,31 @@ public class ChannelActivity extends BaseActivity {
 
     @Override
     protected void initInstance() {
-        checkStrs = ChannelDao.queryChannel(ChannelVo.TYPE_TOP);
-        addStrs = ChannelDao.queryChannel(ChannelVo.TYPE_BOTTOM);
         checkRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         addRecycler.setLayoutManager(new GridLayoutManager(this, 4));
         checkAdapter = new CheckAdapter(R.layout.grid_item_tabs, checkStrs);
         checkRecycler.setAdapter(checkAdapter);
         addAdapter = new AddAdapter(R.layout.grid_item_tabs, addStrs);
         addRecycler.setAdapter(addAdapter);
-//        ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(new ItemDragAndSwipeCallback(checkAdapter));
-//        mItemTouchHelper.attachToRecyclerView(checkRecycler);
-//        checkAdapter.enableDragItem(mItemTouchHelper, R.id.tvTab, true);
-//        checkAdapter.setOnItemDragListener(new OnItemDragListener() {
-//                                               @Override
-//                                               public void onItemDragStart(RecyclerView.ViewHolder viewHolder, int pos) {
-//                                                   startVo=checkAdapter.getItem(pos);
-//                                                   Log.d(TAG, "drag start");
-//                                               }
-//
-//
-//                                               @Override
-//                                               public void onItemDragMoving(RecyclerView.ViewHolder source, int from, RecyclerView.ViewHolder target, int to) {
-//                                                   Log.d(TAG, "move 开始的position from: " + source.getAdapterPosition() + "  to: " + target.getAdapterPosition());
-//                                               }
-//
-//                                               @Override
-//                                               public void onItemDragEnd(RecyclerView.ViewHolder viewHolder, int pos) {
-//                                                   int post=viewHolder.getAdapterPosition();
-//                                                   ChannelVo endVo=checkAdapter.getData().get(viewHolder.getAdapterPosition());
-//                                                   long start,end;
-//                                                   start=startVo.getId();
-//                                                   end=endVo.getId();
-//                                                   startVo.setId(end);
-//                                                   endVo.setId(start);
-//                                                   List<ChannelVo> list = new ArrayList<>();
-//                                                   list.add(startVo);
-//                                                   list.add(endVo);
-//                                                   ChannelDao.updatesChannel(list);
-//                                                   Log.d(TAG, "drag end");
-//                                               }
-//                                           }
-//        );
+        mPresenter.getTopList();
+        mPresenter.getBottom();
+    }
+
+    @Override
+    public void onErrMsg(String errMsg) {
+
+    }
+
+    @Override
+    public void setTopList(List<ChannelVo> list) {
+        checkStrs = list;
+        checkAdapter.setNewData(list);
+    }
+
+    @Override
+    public void setBottom(List<ChannelVo> list) {
+        addStrs = list;
+        addAdapter.setNewData(list);
     }
 
     private class CheckAdapter extends MyBaseAdapter<ChannelVo, BaseViewHolder> {

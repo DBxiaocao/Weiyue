@@ -1,9 +1,6 @@
 package com.xiaocao.weiyue.ui.user;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -18,13 +15,11 @@ import com.xiaocao.weiyue.Constants;
 import com.xiaocao.weiyue.R;
 import com.xiaocao.weiyue.dao.CollectionDao;
 import com.xiaocao.weiyue.model.CollectionVo;
-import com.xiaocao.weiyue.ui.adapter.MyBaseAdapter;
-import com.xiaocao.weiyue.ui.home.NewsDetailActivity;
+import com.xiaocao.weiyue.ui.home.detail.NewsDetailActivity;
 
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import x.lib.ui.BaseActivity;

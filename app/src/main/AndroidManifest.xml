@@ -16,9 +16,9 @@
             android:name=".ui.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.home.ChannelActivity" />
+        <activity android:name=".ui.home.channel.ChannelActivity" />
         <activity
-            android:name=".ui.home.NewsDetailActivity"
+            android:name=".ui.home.detail.NewsDetailActivity"
             android:label="@string/title_activity_news_detail"
             android:theme="@style/SlideClose.Transparent.Theme"
             android:screenOrientation="portrait"/>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiaocao.weiyue.ui.home.ChannelActivity">
+    tools:context="com.xiaocao.weiyue.ui.home.channel.ChannelActivity">
 
     <include
         layout="@layout/include_title"/>

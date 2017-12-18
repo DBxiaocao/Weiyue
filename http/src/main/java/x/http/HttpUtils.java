@@ -206,12 +206,6 @@ public class HttpUtils {
                                 result.setResult(responseBody.string());
                                 result.setSuccess(true);
                                 subscriber.onNext(result);
-//                                ResponseResult result = parseResponse(responseBody);
-//                                if (result.success) {
-//                                    subscriber.onNext(result);
-//                                    subscriber.onComplete();
-//                                } else
-//                                    subscriber.onError(new Throwable(result.msg));
                             }
                         }, new Consumer<Throwable>() {
                             @Override
@@ -225,6 +219,7 @@ public class HttpUtils {
             }
         }).subscribeOn(Schedulers.newThread());
     }
+
 
 
     private static final Object responseLock = new Object();

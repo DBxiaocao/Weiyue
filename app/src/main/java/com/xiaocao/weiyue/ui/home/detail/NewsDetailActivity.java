@@ -1,4 +1,4 @@
-package com.xiaocao.weiyue.ui.home;
+package com.xiaocao.weiyue.ui.home.detail;
 
 
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import x.lib.ui.BaseActivity;
+import x.lib.ui.BaseMvpActivity;
 import x.lib.ui.TitleView;
 import x.lib.utils.GlideUtils;
 import x.lib.utils.ToastUtils;
@@ -24,6 +25,7 @@ import com.xiaocao.weiyue.model.NewsDetail;
 import com.xiaocao.weiyue.model.event.NewsDetailEvent;
 import com.xiaocao.weiyue.model.request.NewsDetailRequest;
 import com.xiaocao.weiyue.presenter.INewsPresenter;
+import com.xiaocao.weiyue.ui.home.detail.NewsDetailContract.DetailView;
 import com.xiaocao.weiyue.utils.IntentUtil;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +39,7 @@ import butterknife.Bind;
  * author: xiaocao
  * date: 17/7/5 下午6:00
  */
-public class NewsDetailActivity extends BaseActivity {
+public class NewsDetailActivity extends BaseMvpActivity<NewsDetailPresenter> implements DetailView {
 
 
     @Bind(R.id.ivNewsImg)
@@ -48,7 +50,6 @@ public class NewsDetailActivity extends BaseActivity {
     TextView tvNewsTitle;
     @Bind(R.id.toolbarLayout)
     CollapsingToolbarLayout toolbarLayout;
-    private INewsPresenter mPresenter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,10 +67,6 @@ public class NewsDetailActivity extends BaseActivity {
         title.setBack(activity);
     }
 
-    @Override
-    protected boolean isRegisterEventBus() {
-        return true;
-    }
 
     @Override
     protected boolean isSupportSwipeBack() {
@@ -81,30 +78,16 @@ public class NewsDetailActivity extends BaseActivity {
         tvNewsTitle.setText(getIntent().getExtras().getString(Constants.NEWS_Title));
         toolbarLayout.setTitle(getIntent().getExtras().getString(Constants.NEWS_Title));
         GlideUtils.loadImageView(activity, getIntent().getExtras().getString(Constants.NEWS_Img), ivNewsImg);
-        mPresenter = PresenterFactory.getNewsPresenter();
-        mPresenter.getNewsDetail(new NewsDetailRequest().setId(getIntent().getExtras().getString(Constants.NEWS_ID)));
-
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(NewsDetailEvent event) {
-        switch (event.code) {
-            case NewsDetailEvent.code_success:
-                tvNewsContent.setText(Html.fromHtml(((NewsDetail) event.data).getBody()));
-                break;
-            case NewsDetailEvent.code_err:
-                ToastUtils.showShort(activity, (String) event.data);
-                break;
-        }
+        mPresenter.getDetail(new NewsDetailRequest().setId(getIntent().getExtras().getString(Constants.NEWS_ID)));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_news_detail, menu);
-        CollectionVo dbVo=CollectionDao.queryImgUrl(getIntent().getExtras().getString(Constants.NEWS_Img));
-        if (null !=dbVo && dbVo.getImgUrl().equals(getIntent().getExtras().getString(Constants.NEWS_Img))){
+        CollectionVo dbVo = CollectionDao.queryImgUrl(getIntent().getExtras().getString(Constants.NEWS_Img));
+        if (null != dbVo && dbVo.getImgUrl().equals(getIntent().getExtras().getString(Constants.NEWS_Img))) {
             menu.getItem(0).setTitle("取消收藏");
-        }else {
+        } else {
             menu.getItem(0).setTitle("添加收藏");
         }
         return true;
@@ -112,23 +95,25 @@ public class NewsDetailActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menuCollection:
-                CollectionVo dbVo=CollectionDao.queryImgUrl(getIntent().getExtras().getString(Constants.NEWS_Img));
-                if (null !=dbVo && dbVo.getImgUrl().equals(getIntent().getExtras().getString(Constants.NEWS_Img))){
-                    CollectionDao.deleteChannel(dbVo.getId());
-                    ToastUtils.showShort(activity,"已取消收藏");
-                }else {
-                    CollectionVo vo = new CollectionVo();
-                    vo.setType(CollectionVo.TYPE_News);
-                    vo.setImgUrl(getIntent().getExtras().getString(Constants.NEWS_Img));
-                    vo.setTitle(getIntent().getExtras().getString(Constants.NEWS_Title));
-                    vo.setNewsId(getIntent().getExtras().getString(Constants.NEWS_ID));
-                    vo.setId(CollectionDao.queryAll().size()+1);
-                    CollectionDao.insert(vo);
-                    ToastUtils.showShort(activity,"已添加收藏");
-                }
-                supportInvalidateOptionsMenu();
+//                CollectionVo dbVo = CollectionDao.queryImgUrl(getIntent().getExtras().getString(Constants.NEWS_Img));
+//                if (null != dbVo && dbVo.getImgUrl().equals(getIntent().getExtras().getString(Constants.NEWS_Img))) {
+//                    CollectionDao.deleteChannel(dbVo.getId());
+//                    ToastUtils.showShort(activity, "已取消收藏");
+//                } else {
+//                    CollectionVo vo = new CollectionVo();
+//                    vo.setType(CollectionVo.TYPE_News);
+//                    vo.setImgUrl(getIntent().getExtras().getString(Constants.NEWS_Img));
+//                    vo.setTitle(getIntent().getExtras().getString(Constants.NEWS_Title));
+//                    vo.setNewsId(getIntent().getExtras().getString(Constants.NEWS_ID));
+//                    vo.setId(CollectionDao.queryAll().size() + 1);
+//                    CollectionDao.insert(vo);
+//                    ToastUtils.showShort(activity, "已添加收藏");
+//                }
+                mPresenter.saveDb(getIntent().getExtras().getString(Constants.NEWS_Img)
+                        , getIntent().getExtras().getString(Constants.NEWS_Title)
+                        , getIntent().getExtras().getString(Constants.NEWS_ID));
                 break;
             case R.id.menuShare:
                 IntentUtil.shareText(activity, getIntent().getExtras().getString(Constants.NEWS_Title), getIntent().getExtras().getString(Constants.NEWS_HTML));
@@ -140,5 +125,21 @@ public class NewsDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onErrMsg(String errMsg) {
+        ToastUtils.showShort(activity, errMsg);
+    }
+
+    @Override
+    public void setDetail(NewsDetail detail) {
+        tvNewsContent.setText(Html.fromHtml(detail.getBody()));
+    }
+
+    @Override
+    public void saveDb(String msg) {
+        ToastUtils.showShort(activity, msg);
+        supportInvalidateOptionsMenu();
     }
 }

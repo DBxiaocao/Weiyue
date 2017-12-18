@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.xiaocao.weiyue.ui.home.NewsDetailActivity">
+    tools:context="com.xiaocao.weiyue.ui.home.detail.NewsDetailActivity">
     <item
         android:id="@+id/menuCollection"
         android:orderInCategory="100"

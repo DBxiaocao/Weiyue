@@ -1,6 +1,5 @@
 package com.xiaocao.weiyue.ui.home;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,6 +13,9 @@ import com.xiaocao.weiyue.model.ChannelVo;
 import x.lib.ui.BaseEvent;
 import com.xiaocao.weiyue.model.event.ChannelEvent;
 import com.xiaocao.weiyue.ui.adapter.ViewPagerAdapter;
+import com.xiaocao.weiyue.ui.home.channel.ChannelActivity;
+import com.xiaocao.weiyue.ui.home.news.NewsFragment;
+
 import x.lib.utils.EventBusUtil;
 
 import org.greenrobot.eventbus.Subscribe;

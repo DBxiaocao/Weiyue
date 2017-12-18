@@ -8,9 +8,12 @@ import android.widget.ImageView;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import x.lib.ui.BaseFragment;
+
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiaocao.weiyue.Constants;
 import com.xiaocao.weiyue.R;
 import com.xiaocao.weiyue.ui.MainActivity;
+import com.xiaocao.weiyue.ui.adapter.CommAdapter;
 import com.xiaocao.weiyue.ui.adapter.ViewPagerAdapter;
 
 import java.util.ArrayList;
@@ -34,7 +37,6 @@ public class VideoFragment extends BaseFragment {
     @Bind(R.id.viewpager)
     ViewPager viewpager;
 
-
     @Override
     protected int setContentViewResId() {
         return R.layout.fragment_video;
@@ -55,6 +57,7 @@ public class VideoFragment extends BaseFragment {
         viewpager.setAdapter(videoAdapter);
         tabLayout.setupWithViewPager(viewpager);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
     }
 
     @Override
