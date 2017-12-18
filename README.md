@@ -1,4 +1,4 @@
-微阅是一款集新闻，视频和妹子的阅读类软件，基于 Material Design + RxJava2.x + Retrofit2.x + Glide，基本涵盖了当前 Android 端开发最常用的主流框架。
+微阅是一款集新闻，视频和妹子的阅读类软件，基于 Material Design + RxJava2.x + Retrofit2.x + Glide＋MVP，基本涵盖了当前 Android 端开发最常用的主流框架。
 
 ### 效果图
 ![整体效果图](https://github.com/DBxiaocao/Weiyue/blob/master/screenshot/hotGif.gif?raw=true)
