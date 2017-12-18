@@ -2,10 +2,6 @@
 
 ### 效果图
 ![整体效果图](https://github.com/DBxiaocao/Weiyue/blob/master/screenshot/hotGif.gif?raw=true)
-![文章首页](https://raw.githubusercontent.com/DBxiaocao/Weiyue/master/screenshot/Screenshot_2017-07-31-16-30-12-677_com.xiaocao.weiyue.png)
-![视频](https://github.com/DBxiaocao/Weiyue/blob/master/screenshot/Screenshot_2017-07-31-16-30-26-878_com.xiaocao.weiyue.png?raw=true)
-![美图](https://github.com/DBxiaocao/Weiyue/blob/master/screenshot/Screenshot_2017-07-31-16-30-39-791_com.xiaocao.weiyue.png?raw=true)
-![我的收藏](https://github.com/DBxiaocao/Weiyue/blob/master/screenshot/Screenshot_2017-07-31-16-34-09-428_com.xiaocao.weiyue.png?raw=true)
 
 
 ### 目前模块包括：
