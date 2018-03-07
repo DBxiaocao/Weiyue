@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="popwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_anim_enter_bottom</item>
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pop_anim_exit_bottom</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--滑动关闭-->
+    <style name="SlideClose.Transparent.Theme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="ActionBar.Custom" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="displayOptions">showCustom</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="android:displayOptions" tools:ignore="NewApi">showCustom</item>
+        <item name="android:height">?actionBarSize</item>
+    </style>
+
+    <style name="BaseDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColorPrimary">@color/text_color_primary</item>
+        <item name="android:textColorSecondary">@color/text_second_color_primary</item>
+        <item name="android:windowEnterAnimation">@anim/abc_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
+    </style>
+
+    <!--主题样式-->
+
+    <style name="RedTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorAccent">@color/accent_red</item>
+    </style>
+
+    <style name="RedDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryDark">@color/dark_red</item>
+        <item name="colorAccent">@color/accent_red</item>
+    </style>
+
+    <style name="SlideClose.Transparent.Red.Theme" parent="RedTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="BrownTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorPrimaryDark">@color/dark_brown</item>
+        <item name="colorAccent">@color/dark_brown</item>
+    </style>
+
+    <style name="BrownDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/brown</item>
+        <item name="colorPrimaryDark">@color/dark_brown</item>
+        <item name="colorAccent">@color/dark_brown</item>
+    </style>
+
+    <style name="SlideClose.Transparent.Brown.Theme" parent="BrownTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="BlueTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">@color/accent_blue</item>
+    </style>
+
+    <style name="BlueDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryDark">@color/dark_blue</item>
+        <item name="colorAccent">@color/accent_blue</item>
+    </style>
+
+    <style name="SlideClose.Transparent.Blue.Theme" parent="BlueTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="BlueGreyTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/blue_grey</item>
+        <item name="colorPrimaryDark">@color/dark_blue_grey</item>
+        <item name="colorAccent">@color/accent_blue_grey</item>
+    </style>
+
+    <style name="BlueGreyDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/blue_grey</item>
+        <item name="colorPrimaryDark">@color/dark_blue_grey</item>
+        <item name="colorAccent">@color/accent_blue_grey</item>
+    </style>
+
+    <style name="SlideClose.Transparent.BlueGrey.Theme" parent="BlueGreyTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="YellowTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/dark_yellow</item>
+        <item name="colorAccent">@color/accent_yellow</item>
+    </style>
+
+    <style name="YellowDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/yellow</item>
+        <item name="colorPrimaryDark">@color/dark_yellow</item>
+        <item name="colorAccent">@color/accent_yellow</item>
+    </style>
+
+    <style name="SlideClose.Transparent.Yellow.Theme" parent="YellowTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="DeepPurpleTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/deep_purple</item>
+        <item name="colorPrimaryDark">@color/dark_deep_purple</item>
+        <item name="colorAccent">@color/accent_deep_purple</item>
+    </style>
+
+    <style name="DeepPurpleDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/deep_purple</item>
+        <item name="colorPrimaryDark">@color/dark_deep_purple</item>
+        <item name="colorAccent">@color/accent_deep_purple</item>
+    </style>
+
+    <style name="SlideClose.Transparent.DeepPurple.Theme" parent="DeepPurpleTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="PinkTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/dark_pink</item>
+        <item name="colorAccent">@color/accent_pink</item>
+    </style>
+
+    <style name="PinkDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/pink</item>
+        <item name="colorPrimaryDark">@color/dark_pink</item>
+        <item name="colorAccent">@color/accent_pink</item>
+    </style>
+
+    <style name="SlideClose.Transparent.Pink.Theme" parent="PinkTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <style name="GreenTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <item name="colorAccent">@color/accent_green</item>
+    </style>
+
+    <style name="GreenDialogTheme" parent="BaseDialogTheme">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <item name="colorAccent">@color/accent_green</item>
+    </style>
+
+    <style name="SlideClose.Transparent.Green.Theme" parent="GreenTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Custom</item>
+    </style>
+
+    <!--字体样式-->
+    <style name="Theme_14">
+        <item name="textsize_Detail_title">20sp</item>
+        <item name="textsize_title">14sp</item>
+        <item name="textsize_user">12sp</item>
+        <item name="textsize_time">12sp</item>
+        <item name="textsize_read">14sp</item>
+    </style>
+    <style name="Theme_15">
+        <item name="textsize_Detail_title">22sp</item>
+        <item name="textsize_title">16sp</item>
+        <item name="textsize_user">14sp</item>
+        <item name="textsize_time">14sp</item>
+        <item name="textsize_read">16sp</item>
+    </style>
+    <style name="Theme_16">
+        <item name="textsize_Detail_title">24sp</item>
+        <item name="textsize_title">18sp</item>
+        <item name="textsize_user">16sp</item>
+        <item name="textsize_time">16sp</item>
+        <item name="textsize_read">18sp</item>
+    </style>
+
+    <style name="titleSizeStyle">
+        <item name="android:textSize">?attr/textsize_title</item>
+    </style>
+    <style name="userSizeStyle">
+        <item name="android:textSize">?attr/textsize_user</item>
+    </style>
+    <style name="timeSizeStyle">
+        <item name="android:textSize">?attr/textsize_time</item>
+    </style>
+
+</resources>

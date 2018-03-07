@@ -1,98 +1,152 @@
 <resources>
-    <string name="app_name">微阅</string>
-    <string name="msg_load_more_loading">加载中，请稍候&#8230;</string>
-    <string name="msg_load_more_loaded_no_more">暂无更多</string>
-    <string name="msg_load_more_error">加载失败，点击重试</string>
-    <string name="title_activity_news_detail">NewsDetailActivity</string>
-    <string name="large_text">
-        "Material is the metaphor.\n\n"
+    <string name="app_name">简洁新闻</string>
 
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts.\n\n"
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
-        "Bold, graphic, intentional.\n\n"
-
-        "The foundational elements of print based design typography, grids, space, scale, color, "
-        "and use of imagery guide visual treatments. These elements do far more than please the "
-        "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
-        "imagery, large scale typography, and intentional white space create a bold and graphic "
-        "interface that immerse the user in the experience.\n"
-        "An emphasis on user actions makes core functionality immediately apparent and provides "
-        "waypoints for the user.\n\n"
-
-        "Motion provides meaning.\n\n"
-
-        "Motion respects and reinforces the user as the prime mover. Primary user actions are "
-        "inflection points that initiate motion, transforming the whole design.\n"
-        "All action takes place in a single environment. Objects are presented to the user without "
-        "breaking the continuity of experience even as they transform and reorganize.\n"
-        "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
-        "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
-
-        "3D world.\n\n"
-
-        "The material environment is a 3D space, which means all objects have x, y, and z "
-        "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
-        "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
-        "position along the z-axis and has a standard 1dp thickness.\n"
-        "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
-        "emulated by manipulating the y-axis.\n\n"
-
-        "Light and shadow.\n\n"
-
-        "Within the material environment, virtual lights illuminate the scene. Key lights create "
-        "directional shadows, while ambient light creates soft shadows from all angles.\n"
-        "Shadows in the material environment are cast by these two light sources. In Android "
-        "development, shadows occur when light sources are blocked by sheets of material at "
-        "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
-        "y-axis only. The following example shows the card with a height of 6dp.\n\n"
-
-        "Resting elevation.\n\n"
-
-        "All material objects, regardless of size, have a resting elevation, or default elevation "
-        "that does not change. If an object changes elevation, it should return to its resting "
-        "elevation as soon as possible.\n\n"
-
-        "Component elevations.\n\n"
-
-        "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
-        "does not vary from 6dp in one app to 16dp in another app).\n"
-        "Components may have different resting elevations across platforms, depending on the depth "
-        "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
-
-        "Responsive elevation and dynamic elevation offsets.\n\n"
-
-        "Some component types have responsive elevation, meaning they change elevation in response "
-        "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
-        "changes are consistently implemented using dynamic elevation offsets.\n"
-        "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
-        "to the component’s resting state. They ensure that elevation changes are consistent "
-        "across actions and component types. For example, all components that lift on press have "
-        "the same elevation change relative to their resting elevation.\n"
-        "Once the input event is completed or cancelled, the component will return to its resting "
-        "elevation.\n\n"
-
-        "Avoiding elevation interference.\n\n"
-
-        "Components with responsive elevations may encounter other components as they move between "
-        "their resting elevations and dynamic elevation offsets. Because material cannot pass "
-        "through other material, components avoid interfering with one another any number of ways, "
-        "whether on a per component basis or using the entire app layout.\n"
-        "On a component level, components can move or be removed before they cause interference. "
-        "For example, a floating action button (FAB) can disappear or move off screen before a "
-        "user picks up a card, or it can move if a snackbar appears.\n"
-        "On the layout level, design your app layout to minimize opportunities for interference. "
-        "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
-        "when a user tries to pick up one of cards.\n\n"
-    </string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="wy_channel_name">
+        <!--定死不能更改的5个频道-->
+        <item>热点</item>
+        <item>科技</item>
+        <item>财经</item>
+        <item>军事</item>
+        <item>体育</item>
+    </string-array>
+
+    <string-array name="wy_channel_id">
+        <item>T1348647909107</item>
+        <item>T1348649580692</item>
+        <item>T1348648756099</item>
+        <item>T1348648141035</item>
+        <item>T1348649079062</item>
+    </string-array>
+
+    <!--新闻的可选频道-->
+    <string-array name="news_channel_name">
+
+        <item>足球</item>
+        <item>娱乐</item>
+        <item>电影</item>
+        <item>汽车</item>
+        <item>笑话</item>
+        <item>游戏</item>
+        <item>时尚</item>
+        <item>情感</item>
+        <item>精选</item>
+        <item>电台</item>
+        <item>NBA</item>
+        <item>数码</item>
+        <item>移动</item>
+        <item>彩票</item>
+        <item>教育</item>
+        <item>论坛</item>
+        <item>旅游</item>
+        <item>手机</item>
+        <item>博客</item>
+        <item>社会</item>
+        <item>家居</item>
+        <item>暴雪</item>
+        <item>亲子</item>
+        <item>CBA</item>
+        <item>消息</item>
+    </string-array>
+    <string-array name="news_channel_id">
+
+        <item>T1399700447917</item>
+        <item>T1348648517839</item>
+        <item>T1348648650048</item>
+        <item>T1348654060988</item>
+        <item>T1350383429665</item>
+        <item>T1348654151579</item>
+        <item>T1348650593803</item>
+        <item>T1348650839000</item>
+        <item>T1370583240249</item>
+        <item>T1379038288239</item>
+        <item>T1348649145984</item>
+        <item>T1348649776727</item>
+        <item>T1351233117091</item>
+        <item>T1356600029035</item>
+        <item>T1348654225495</item>
+        <item>T1349837670307</item>
+        <item>T1348654204705</item>
+        <item>T1348649654285</item>
+        <item>T1349837698345</item>
+        <item>T1348648037603</item>
+        <item>T1348654105308</item>
+        <item>T1397016069906</item>
+        <item>T1397116135282</item>
+        <item>T1348649475931</item>
+        <item>T1371543208049</item>
+    </string-array>
+
+    <string-array name="video_name">
+        <item>新闻</item>
+        <item>搞笑</item>
+        <item>美女</item>
+        <item>萌物</item>
+        <item>黑科技</item>
+        <item>二次元</item>
+        <item>涨姿势</item>
+    </string-array>
+    <string-array name="video_id">
+        <item>VAV3H6JSN</item>
+        <item>VAP4BFE3U</item>
+        <item>VAP4BG6DL</item>
+        <item>VAP4BFR16</item>
+        <item>VBF8F2PKF</item>
+        <item>VBF8F1PSA</item>
+        <item>VBF8F3SGL</item>
+    </string-array>
+
+    <string-array name="read_title">
+        <item>知乎日报</item>
+        <item>果壳热门</item>
+    </string-array>
+
+    <string-array name="text_size">
+        <item>小(14)</item>
+        <item>中(16)</item>
+        <item>大(18)</item>
+    </string-array>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <string-array name="jiemian_channel">
+        <item>首页</item>
+        <item>商业</item>
+        <item>财经</item>
+        <item>新闻</item>
+        <item>科技</item>
+        <item>汽车</item>
+        <item>地产</item>
+        <item>军事</item>
+        <item>中国</item>
+        <item>视频</item>
+        <item>直播</item>
+    </string-array>
+    <string-array name="jiemian_channel_id">
+        <item>cate/117/</item>
+        <item>cate/643/</item>
+        <item>cate/644/</item>
+        <item>cate/123/</item>
+        <item>cate/138/</item>
+        <item>cate/121/</item>
+        <item>cate/293/</item>
+        <item>cate/260/</item>
+        <item>video/timeline</item>
+        <item>live/list</item>
+    </string-array>
+
+    <string name="key_pic">图片</string>
+    <string name="key_read">阅读</string>
+    <string name="key_cache">缓存</string>
+    <string name="key_theme">主题</string>
+    <string name="key_text_size">字体</string>
+    <string name="key_clear">清除</string>
+    <string name="key_version">版本</string>
+    <string name="key_user">dbxiaocao</string>
+    <string name="about">「简洁新闻」- 旨在让看新闻更加简洁,实用。\n\n如果你觉得「她」是个值得推荐的应用，并且希望更多的人能知道她，你只需点击右上角的分享按钮进行分享。\n\n你的支持将是我最大的动力与褒奖！</string>
 
 </resources>

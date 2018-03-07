@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_marginBottom="10dp">
+
+
+    <TextView
+        android:id="@+id/tvReadTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textSize="?attr/textsize_title" />
+
+    <ImageView
+        android:id="@+id/ivReadPic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/icon_no_picture" />
+
+    <TextView
+        android:id="@+id/tvReadMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:maxLines="2"
+        android:enabled="true"
+        android:layout_marginTop="5dp"
+        android:textSize="?attr/textsize_user" />
+
+</LinearLayout>

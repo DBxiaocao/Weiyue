@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+    <cn.jzvd.JZVideoPlayerStandard
         android:id="@+id/vdPlayer"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
@@ -28,29 +28,8 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/ivAvatar"
             android:text="视频名称"
-            android:textSize="12sp" />
+            android:textSize="?attr/textsize_user"/>
 
-
-        <ImageView
-            android:id="@+id/ivCollection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/icon_collection_false" />
-
-        <ImageView
-            android:id="@+id/ivShare"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/ivCollection"
-            android:src="@mipmap/icon_share"
-            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

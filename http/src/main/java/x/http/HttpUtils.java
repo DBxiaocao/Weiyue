@@ -60,8 +60,6 @@ public class HttpUtils {
 
         @GET
         Observable<ResponseBody> get(@Url String url, @QueryMap Map<String, String> params);
-
-
     }
 
     interface Download {
@@ -75,7 +73,7 @@ public class HttpUtils {
     private static Http http;
     private static Context mContext;
 
-    public static void init(String sever, Context context) {
+    public static void init(String sever, Context context, boolean isLog) {
         mContext = context;
         //增加头部信息
         Interceptor headerInterceptor = new Interceptor() {
@@ -83,10 +81,11 @@ public class HttpUtils {
             public Response intercept(Chain chain) throws IOException {
                 Request.Builder builder = chain.request().newBuilder();
                 builder.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.108 Safari/537.36 2345Explorer/8.0.0.13547");
-                builder.addHeader("Cache-Control", "max-age=0");
-                builder.addHeader("Upgrade-Insecure-Requests", "1");
-                builder.addHeader("X-Requested-With", "XMLHttpRequest");
-                builder.addHeader("Cookie", "uuid=\"w:f2e0e469165542f8a3960f67cb354026\"; __tasessionId=4p6q77g6q1479458262778; csrftoken=7de2dd812d513441f85cf8272f015ce5; tt_webid=36385357187");
+//                builder.addHeader("User-Agent", UserAgentUtil.getUserAgent(mContext));
+//                builder.addHeader("Cache-Control", "max-age=0");
+//                builder.addHeader("Upgrade-Insecure-Requests", "1");
+//                builder.addHeader("X-Requested-With", "XMLHttpRequest");
+//                builder.addHeader("Cookie", "uuid=\"w:f2e0e469165542f8a3960f67cb354026\"; __tasessionId=4p6q77g6q1479458262778; csrftoken=7de2dd812d513441f85cf8272f015ce5; tt_webid=36385357187");
                 return chain.proceed(builder.build());
             }
         };
@@ -104,7 +103,7 @@ public class HttpUtils {
                             .header("Cache-Control", "public, max-age=" + 60 * 60 * 24 * 7).build();
                 } else {//无网时
                     request = request.newBuilder()
-                            .cacheControl(new CacheControl.Builder().onlyIfCached().maxStale(60 * 60 * 24 * 7,TimeUnit.SECONDS).build())
+                            .cacheControl(new CacheControl.Builder().onlyIfCached().maxStale(60 * 60 * 24 * 7, TimeUnit.SECONDS).build())
                             .build();
                 }
                 Response response = chain.proceed(request);
@@ -116,15 +115,18 @@ public class HttpUtils {
         };
 
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
-        httpClientBuilder.connectTimeout(30, TimeUnit.SECONDS)
+        httpClientBuilder
+                .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .cache(new Cache(new File(mContext.getCacheDir(), "HttpCache"),
                         1024 * 1024 * 100));
+
         httpClientBuilder.addInterceptor(headerInterceptor);
         httpClientBuilder.addInterceptor(new HttpLoggingInterceptor()
-                .setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE));
+//                .setLevel(HttpLoggingInterceptor.Level.BODY));
+                .setLevel(isLog ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE));
 
         retrofit = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
@@ -182,7 +184,7 @@ public class HttpUtils {
                 Logger.d("访问1：%s", reqObj instanceof ARequest);
                 if (reqObj instanceof ARequest) {
                     ARequest aRequest = (ARequest) reqObj;
-                    Logger.d("访问2：%s - %s", aRequest.method(), aRequest.url());
+                    Logger.d("访问2：%s - %s", aRequest.method(), aRequest.url() + aRequest.params());
                     Observable<ResponseBody> observable = null;
                     switch (aRequest.method()) {
                         case GET:
@@ -199,82 +201,75 @@ public class HttpUtils {
                         observable.subscribe(new Consumer<ResponseBody>() {
                             @Override
                             public void accept(@NonNull ResponseBody responseBody) throws Exception {
-                                ResponseResult result = new ResponseResult();
-                                result.setResult(responseBody.string());
-                                result.setSuccess(true);
-                                subscriber.onNext(result);
+                                if (NetUtils.isConnected(mContext)) {
+                                    ResponseResult result = new ResponseResult();
+                                    result.setResult(responseBody.string());
+                                    result.setSuccess(true);
+                                    subscriber.onNext(result);
+                                } else {
+                                    ResponseResult result = new ResponseResult();
+                                    result.setResult(responseBody.string());
+                                    result.setSuccess(true);
+                                    subscriber.onNext(result);
+                                    subscriber.onError(parseError(new Throwable("当前数据为缓存数据,请检查网络链接")));
+                                }
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(@NonNull Throwable throwable) throws Exception {
-                                subscriber.onError(parseError(throwable));
+                                if (NetUtils.isConnected(mContext))
+                                    subscriber.onError(parseError(throwable));
+                                else
+                                    subscriber.onError(parseError(new Throwable("请检查网络链接")));
                             }
                         });
                     else
                         subscriber.onComplete();
                 }
             }
-        });
+        }).subscribeOn(Schedulers.io());
     }
-
 
 
     private static final Object responseLock = new Object();
 
-    /*
-    * int curPage = 0;
-                        int totalPage = 0;
-                        String result = null;
-                        if (jsonObject.has("result"))
-                            result = jsonObject.getString("result");
-                        if (jsonObject.has("page"))
-                            curPage = jsonObject.getInt("page");
-                        if (jsonObject.has("totalPage"))
-                            totalPage = jsonObject.getInt("totalPage");
-                        if (jsonObject.has("totalPrice"))
-                            responseResult.totalPrice = jsonObject.getString("totalPrice");
-                        responseResult.isLastPage = curPage == totalPage;
-                                                responseResult.setResult(result == null ? "" : result);
-
-    * */
     /*解析服务器返回数据*/
     private static ResponseResult parseResponse(ResponseBody response) {
         synchronized (responseLock) {
             ResponseResult responseResult = new ResponseResult();
             try {
                 Logger.json(response.string());
-                JSONObject jsonObject = new JSONObject(response.string());
-//                Logger.json(jsonObject.toString());
-                String desription = "";
-                if (jsonObject.has("error_detail"))
-                    desription = jsonObject.getString("error_detail");
-                responseResult.setMsg(desription);
-                int state = jsonObject.getInt("error_code");
-                switch (state) {
-                    case 10101://失败
-                        responseResult.setMsg("非法请求，仅支持json格式");
-                        responseResult.setSuccess(false);
-                        break;
-                    case 10102://失败
-                        responseResult.setMsg("非法请求，仅支持json格式");
-                        responseResult.setSuccess(false);
-                        break;
-                    case 10105://失败
-                        responseResult.setSuccess(false);
-                        break;
-                    case 10107://失败
-                        responseResult.setSuccess(false);
-                        break;
-                    default:
-                        responseResult.setSuccess(false);
-                        break;
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response.string());
+                    int state = jsonObject.getInt("code");
+                    switch (state) {
+                        case 10101://失败
+                            responseResult.setMsg("非法请求，仅支持json格式");
+                            responseResult.setSuccess(false);
+                            break;
+                        case 10102://失败
+                            responseResult.setMsg("非法请求，仅支持json格式");
+                            responseResult.setSuccess(false);
+                            break;
+                        case 10105://失败
+                            responseResult.setSuccess(false);
+                            break;
+                        case 10107://失败
+                            responseResult.setSuccess(false);
+                            break;
+                        default:
+                            responseResult.setSuccess(false);
+                            break;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (JSONException e) {
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             return responseResult;
         }
     }
@@ -282,12 +277,13 @@ public class HttpUtils {
     /*解析返回的错误数据*/
     private static Throwable parseError(Throwable throwable) {
         synchronized (responseLock) {
-            Throwable err = null;
-            if (throwable != null
-                    && !TextUtils.isEmpty(throwable.getMessage())
-                    && throwable.getMessage().contains("time out"))
-                err = new Throwable("请求超时，请检查网络");
-            return err == null ? new Throwable("") : err;
+            if (throwable != null) {
+                return throwable;
+            } else if (throwable != null && !TextUtils.isEmpty(throwable.getMessage()) && throwable.getMessage().contains("time out")) {
+                return new Throwable("请求超时，请检查网络");
+            } else {
+                return new Throwable("");
+            }
         }
     }
 

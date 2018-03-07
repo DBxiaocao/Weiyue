@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xiaocao.weiyue">
+    package="me.xiaocao.news">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
-        android:name=".MyApp"
+        android:name=".app.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/SlideClose.Transparent.Red.Theme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
-        <activity android:name=".ui.home.channel.ChannelActivity" />
+            android:screenOrientation="portrait"
+            android:theme="@style/RedTheme" />
         <activity
-            android:name=".ui.home.detail.NewsDetailActivity"
-            android:label="@string/title_activity_news_detail"
-            android:theme="@style/SlideClose.Transparent.Theme"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ui.SplashActivity">
+            android:name=".ui.news.NewsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.pic.PhotoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.setting.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/RedTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,19 +43,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.WebViewActivity"
+            android:name=".ui.news.NewsWebActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.read.ReadDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.wangyi.WangyiDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.WebTestActivity"
             android:hardwareAccelerated="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.picture.PhotoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/SlideClose.Transparent.Theme"/>
-        <activity
-            android:name=".ui.user.CollectionActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".ui.jiemian.detail.JiemianDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.user.AboutActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.jiemian.channel.OtherListActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EmptyLayout">
+        <attr name="elEmptyLayout" format="reference" />
+        <attr name="elErrorLayout" format="reference" />
+        <attr name="elLoadingLayout" format="reference" />
+    </declare-styleable>
+
+    <attr name="textsize_read" format="reference|dimension"></attr>
+    <attr name="textsize_title" format="reference|dimension"></attr>
+    <attr name="textsize_Detail_title" format="reference|dimension"></attr>
+    <attr name="textsize_user" format="reference|dimension"></attr>
+    <attr name="textsize_time" format="reference|dimension"></attr>
+    <!--Banner无限轮播属性-->
+    <declare-styleable name="BannerView">
+        <attr name="bannerPageMargin" format="dimension" />
+        <attr name="bannerPagePercent" format="float" />
+        <attr name="bannerPageScale" format="float" />
+        <attr name="bannerPageAlpha" format="float" />
+        <attr name="bannerScrollDuration" format="integer" />
+        <attr name="bannerAnimDuration" format="integer" />
+        <attr name="bannerAnimScroll" format="boolean" />
+        <attr name="bannerAutoScroll" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="MarqueeViewStyle">
+        <attr name="mvInterval" format="integer|reference" />
+        <attr name="mvAnimDuration" format="integer|reference" />
+        <attr name="mvTextSize" format="dimension|reference" />
+    </declare-styleable>
+</resources>
