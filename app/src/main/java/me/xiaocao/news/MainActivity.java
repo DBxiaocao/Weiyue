@@ -38,9 +38,6 @@ public class MainActivity extends BaseActivity
     private JieMianFragment newsFragment;
     private VideoFragment videoFragment;
     private ZhiHuFragment zhiHuFragment;
-//    private PicFragment picFragment;
-//    private NewsFragment wangyiFragment;
-//    private CollectionFragment collectionFragment;
 
     @Override
     protected boolean isMainTheme() {
