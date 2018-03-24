@@ -80,15 +80,15 @@ public abstract class BannerBaseAdapter<T> extends PagerAdapter {
                     case MotionEvent.ACTION_DOWN:
                     case MotionEvent.ACTION_MOVE:
                         mDownTime = System.currentTimeMillis();
-                        if (mListener != null) {
-                            mListener.onPageDown();
-                        }
+//                        if (mListener != null) {
+//                            mListener.onPageDown();
+//                        }
                         break;
                     case MotionEvent.ACTION_UP:
                         long upTime = System.currentTimeMillis();
-                        if (mListener != null) {
-                            mListener.onPageUp();
-                        }
+//                        if (mListener != null) {
+//                            mListener.onPageUp();
+//                        }
                         if (upTime - mDownTime < 500) {
                             // 500毫秒以内就算单击
                             if (mListener != null && getItem(finalPosition) != null) {
@@ -175,8 +175,8 @@ public abstract class BannerBaseAdapter<T> extends PagerAdapter {
     public interface OnPageTouchListener<T> {
         void onPageClick(int position, T t);
 
-        void onPageDown();
-
-        void onPageUp();
+//        void onPageDown();
+//
+//        void onPageUp();
     }
 }

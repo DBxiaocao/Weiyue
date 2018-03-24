@@ -15,11 +15,11 @@
             <!--android:title="阅读体验"-->
             <!--android:visibility="gone"-->
             <!--android:widgetLayout="@layout/switch_layout" />-->
-        <Preference
-            android:key="@string/key_text_size"
-            android:layout="@layout/preference_item"
-            android:summary="当前字体大小:"
-            android:title="字体大小" />
+        <!--<Preference-->
+            <!--android:key="@string/key_text_size"-->
+            <!--android:layout="@layout/preference_item"-->
+            <!--android:summary="当前字体大小:"-->
+            <!--android:title="字体大小" />-->
         <Preference
             android:key="@string/key_theme"
             android:layout="@layout/preference_item"

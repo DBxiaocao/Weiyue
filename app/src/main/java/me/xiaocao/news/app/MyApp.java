@@ -8,12 +8,8 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import me.xiaocao.news.BuildConfig;
 import me.xiaocao.news.db.CollectionHelper;
-import x.http.HttpUtils;
-import x.http.util.RequestUtil;
 import x.lib.BaseApplication;
 import x.lib.utils.AppUtils;
-import x.lib.utils.SPUtils;
-import x.lib.utils.ThemeUtils;
 
 /**
  * description: MyApp
@@ -40,8 +36,6 @@ public class MyApp extends BaseApplication {
                 return BuildConfig.DEBUG;
             }
         });
-        HttpUtils.init(Api.NEWS_HOST, instance,BuildConfig.DEBUG);
-        RequestUtil.getUtil().setServerUrl(Api.NEWS_HOST);
         CollectionHelper.initDatabase(DB_NAME);
     }
 }

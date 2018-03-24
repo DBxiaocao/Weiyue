@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import me.xiaocao.news.model.ReadDetail;
+import me.xiaocao.news.model.ZhihuDetail;
 
 /** 
  * description: WebUtils
@@ -74,19 +74,6 @@ public class WebUtils {
         modifiedHtml.append(content);
         modifiedHtml.append("</body></html>");
         return modifiedHtml.toString();
-    }
-
-    public static String newsInsertPic(ReadDetail newsContent) {
-        String result = newsContent.getBody().replaceAll("　　", "");
-        List<ReadDetail.ImgBean> imgBeen = newsContent.getImg();
-        for (int i = 0; i < imgBeen.size(); i++) {
-            if (i != 0) {
-                String ref = imgBeen.get(i).getRef();
-                String url = imgBeen.get(i).getSrc();
-                result = result.replaceAll(ref, getImageBody(url));
-            }
-        }
-        return result;
     }
 
     private static String getImageBody(String url) {

@@ -261,8 +261,8 @@ public class Jiemian {
 
 
     public static class ListEntityX implements MultiItemEntity {
-        public final static int Type_kuaixun_tpl = 1;
-        public final static int Type_xiaotu = 2;
+        public final static int Type_kuaixun_tpl = 8;
+        public final static int Type_xiaotu = 9;
         public final static int Type_pindao_hengla_tpl = 3;
 
         public final static int Type_ads = 4;
@@ -271,8 +271,8 @@ public class Jiemian {
         public final static int Type_h5_hengla_tpl = 6;
         public final static int Type_zhuanti_lunbo_tpl = 7;
 
-        public final static int Type_show_img_right = 8;
-        public final static int Type_show_img_top = 9;
+        public final static int Type_show_img_right = 1;
+        public final static int Type_show_img_top = 2;
 
         public final static int Type_shipin_hengla_tpl = 10;
 
@@ -360,6 +360,7 @@ public class Jiemian {
         private final static String h5_hengla_tpl = "h5_hengla_tpl";
         private final static String zhuanti_lunbo_tpl = "zhuanti_lunbo_tpl";
         private final static String show_img_top = "show_img_top";
+        private final static String show_img_top_intro="show_img_top_intro";
         private final static String show_img_right = "show_img_right";
         private final static String shipin_hengla_tpl = "shipin_hengla_tpl";
 
@@ -380,6 +381,8 @@ public class Jiemian {
                     case zhuanti_lunbo_tpl:
                         return Type_zhuanti_lunbo_tpl;
                     case show_img_top:
+                        return Type_show_img_top;
+                    case show_img_top_intro:
                         return Type_show_img_top;
                     case show_img_right:
                         return Type_show_img_right;

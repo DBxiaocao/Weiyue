@@ -24,6 +24,7 @@ import me.xiaocao.news.ui.adapter.OtherListAdapter;
 import me.xiaocao.news.ui.jiemian.detail.JiemianDetailActivity;
 import x.lib.ui.BaseMvpFragment;
 import x.lib.utils.GlideUtils;
+import x.lib.utils.LogUtil;
 import x.lib.view.banner.BannerBaseAdapter;
 import x.lib.view.banner.BannerView;
 
@@ -40,6 +41,7 @@ public class OtherListFragment extends BaseMvpFragment<HomeListPresenter> implem
     SwipeRefreshLayout swipeRefresh;
     private OtherListAdapter adapter;
     private BannerView bannerView;
+    private  View headView;
     private BannerBaseAdapter<Jiemian.CarouselEntity> bannerAdapter;
 
     public static OtherListFragment newInstance(String newsId) {
@@ -68,15 +70,13 @@ public class OtherListFragment extends BaseMvpFragment<HomeListPresenter> implem
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapters, View view, int position) {
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.NEWS_Title, adapter.getItem(position).getArticle().getAr_tl());
-                bundle.putString(Constants.NEWS_ID, adapter.getItem(position).getArticle().getAr_id());
-                GoActivity(JiemianDetailActivity.class, bundle);
+                Jiemian.ListEntityX.ArticleEntityX bean = adapter.getItem(position).getArticle();
+                goToDetail(bean.getAr_id(),bean.getAr_tl());
             }
         });
         adapter.setPreLoadNumber(1);
         adapter.setOnLoadMoreListener(this, recycler);
-        View headView = LayoutInflater.from(activity).inflate(R.layout.headview_other_banner, null);
+         headView = LayoutInflater.from(activity).inflate(R.layout.headview_other_banner, null);
         bannerView=headView.findViewById(R.id.banner);
         bannerAdapter = new BannerBaseAdapter<Jiemian.CarouselEntity>(activity) {
             @Override
@@ -91,8 +91,16 @@ public class OtherListFragment extends BaseMvpFragment<HomeListPresenter> implem
                 setText(R.id.pageText, data.getArticle().getAr_tl());
             }
         };
+        bannerAdapter.setOnPageTouchListener(new BannerBaseAdapter.OnPageTouchListener<Jiemian.CarouselEntity>() {
+            @Override
+            public void onPageClick(int position, Jiemian.CarouselEntity bean) {
+                if (bean.getType().equals("article")){
+                    goToDetail(bean.getArticle().getAr_id(),bean.getArticle().getAr_tl());
+                }
+            }
+        });
         bannerView.setAdapter(bannerAdapter);
-        adapter.addHeaderView(headView);
+
     }
 
     private int page = 1;
@@ -112,7 +120,9 @@ public class OtherListFragment extends BaseMvpFragment<HomeListPresenter> implem
     @Override
     public void getCarousel(List<Jiemian.CarouselEntity> list) {
         bannerAdapter.setData(list);
+        adapter.addHeaderView(headView);
     }
+
 
     @Override
     public void getRefreshList(List<Jiemian.ListEntityX> list) {
@@ -126,6 +136,14 @@ public class OtherListFragment extends BaseMvpFragment<HomeListPresenter> implem
         adapter.addData(list);
         page++;
         adapter.loadMoreComplete();
+    }
+
+    @Override
+    public void goToDetail(String newsId, String newsTitle) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.NEWS_Title, newsTitle);
+        bundle.putString(Constants.NEWS_ID, newsId);
+        GoActivity(JiemianDetailActivity.class, bundle);
     }
 
     @Override

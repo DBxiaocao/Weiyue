@@ -5,6 +5,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -58,14 +60,8 @@ public class JiemianDetailActivity extends BaseActivity {
         mWebSettings.setBuiltInZoomControls(false);
         mWebSettings.setSavePassword(false);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            mWebSettings.setMixedContentMode(0);
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        } else if (Build.VERSION.SDK_INT >= 19) {
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-        } else if (Build.VERSION.SDK_INT < 19) {
-            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
+        mWebSettings.setMixedContentMode(0);
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         int index = SPUtils.getInstance().getInt(BaseActivity.isTextSize, 0);
         int size;
         if (index == 0) {
@@ -85,7 +81,7 @@ public class JiemianDetailActivity extends BaseActivity {
         mWebSettings.setAllowFileAccessFromFileURLs(false); //通过 file url 加载的 Javascript 读取其他的本地文件 .建议关闭
         mWebSettings.setAllowUniversalAccessFromFileURLs(false);//允许通过 file url 加载的 Javascript 可以访问其他的源，包括其他的文件和 http，https 等其他的源
         mWebSettings.setJavaScriptCanOpenWindowsAutomatically(true);
-        if (Build.VERSION.SDK_INT >= 19)
+        if (Build.VERSION.SDK_INT >= 21)
             mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         else
             mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
@@ -112,13 +108,7 @@ public class JiemianDetailActivity extends BaseActivity {
                 GoActivity(PhotoActivity.class, bundle);
             }
         }, "JavaScriptFunction");
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+
         RxJsoupNetWork.getInstance().getApi(new StringBuffer().append(Api.JIEMIAN_HOST_DETAIL).append(getIntent().getStringExtra(Constants.NEWS_ID)).append(Api.DETAIL_END).toString(), new RxJsoupNetWorkListener<String>() {
             @Override
             public void onNetWorkStart() {
@@ -148,6 +138,7 @@ public class JiemianDetailActivity extends BaseActivity {
             }
         });
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

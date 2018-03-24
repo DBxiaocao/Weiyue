@@ -30,17 +30,13 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile('cn.jzvd:jiaozivideoplayer:6.2.3') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
-//    compile('fm.jiecao:jiecaovideoplayer:5.5.4') {
-//        exclude group: 'com.android.support', module: 'appcompat-v7'
-//    }
     testCompile 'junit:junit:4.12'
-    compile project(':http')
-//    compile project(':lib')
+//    compile project(':http')
     compile project(':baseLib')
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.android.support:cardview-v7:26.1.0'

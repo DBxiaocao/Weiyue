@@ -17,18 +17,10 @@ import me.xiaocao.news.app.Api;
 import me.xiaocao.news.app.Constants;
 import me.xiaocao.news.app.MyApp;
 import me.xiaocao.news.ui.about.AboutActivity;
-import me.xiaocao.news.ui.collection.CollectionFragment;
 import me.xiaocao.news.ui.jiemian.JieMianFragment;
-import me.xiaocao.news.ui.news.NewsFragment;
-import me.xiaocao.news.ui.pic.PicFragment;
-import me.xiaocao.news.ui.read.ReadFragment;
 import me.xiaocao.news.ui.setting.SettingsActivity;
 import me.xiaocao.news.ui.video.VideoFragment;
-import me.xiaocao.news.ui.wangyi.WangyiFragment;
 import me.xiaocao.news.ui.zhihu.ZhiHuFragment;
-import x.http.HttpUtils;
-import x.http.jsoup.RxJsoupNetWork;
-import x.http.util.RequestUtil;
 import x.lib.ui.BaseActivity;
 import x.lib.ui.TitleView;
 import x.lib.utils.BarUtils;
@@ -46,9 +38,9 @@ public class MainActivity extends BaseActivity
     private JieMianFragment newsFragment;
     private VideoFragment videoFragment;
     private ZhiHuFragment zhiHuFragment;
-    private PicFragment picFragment;
-    private NewsFragment wangyiFragment;
-    private CollectionFragment collectionFragment;
+//    private PicFragment picFragment;
+//    private NewsFragment wangyiFragment;
+//    private CollectionFragment collectionFragment;
 
     @Override
     protected boolean isMainTheme() {
@@ -64,10 +56,7 @@ public class MainActivity extends BaseActivity
     protected void initTitle() {
         BarUtils.setStatusBarAlpha(activity, 80);
         title = new TitleView(activity, findViewById(R.id.toolbar));
-        title.setTitleText("新闻");
-
-
-
+        title.setTitleText("界面新闻");
     }
 
     @Override
@@ -80,8 +69,6 @@ public class MainActivity extends BaseActivity
                 GlideUtils.loadImageView(activity, "https://avatars3.githubusercontent.com/u/19219372?v=4&s=460", (CircleImageView) headerLayout.findViewById(R.id.ivAvatar));
             }
         });
-        HttpUtils.init(Api.NEWS_HOST, activity,BuildConfig.DEBUG);
-        RequestUtil.getUtil().setServerUrl(Api.NEWS_HOST);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, title.getToolar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -143,39 +130,16 @@ public class MainActivity extends BaseActivity
         drawerLayout.closeDrawer(GravityCompat.START);
         int id = item.getItemId();
         if (id == R.id.menuNews) {
-            title.setTitleText("新闻");
-            HttpUtils.init(Api.NEWS_HOST, activity,BuildConfig.DEBUG);
-            RequestUtil.getUtil().setServerUrl(Api.NEWS_HOST);
+            title.setTitleText("界面新闻");
             JZVideoPlayer.releaseAllVideos();
             setChioceItem(0);
         } else if (id == R.id.menuVideo) {
-            title.setTitleText("视频");
-            HttpUtils.init(Api.VIDEO_HOST, activity,BuildConfig.DEBUG);
-            RequestUtil.getUtil().setServerUrl(Api.VIDEO_HOST);
-            setChioceItem(1);
-        } else if (id == R.id.menuPic) {
-            title.setTitleText("妹子");
-            JZVideoPlayer.releaseAllVideos();
+            title.setTitleText("网易视频");
             setChioceItem(2);
         }else if (id==R.id.menuRead){
-            title.setTitleText("阅读");
-            HttpUtils.init(Api.GUOKR_HOST, activity,BuildConfig.DEBUG);
-            RequestUtil.getUtil().setServerUrl(Api.GUOKR_HOST);
+            title.setTitleText("知乎日报");
             JZVideoPlayer.releaseAllVideos();
-            setChioceItem(3);
-        }
-        else if (id==R.id.menuWangyi){
-            title.setTitleText("新闻.网易");
-//            HttpUtils.init(Api.WANGYI_HOST, activity, BuildConfig.DEBUG);
-//            RequestUtil.getUtil().setServerUrl(Api.WANGYI_HOST);
-            HttpUtils.init(Api.NEWS_HOST, activity,BuildConfig.DEBUG);
-            RequestUtil.getUtil().setServerUrl(Api.NEWS_HOST);
-            JZVideoPlayer.releaseAllVideos();
-            setChioceItem(4);
-        }else if (id==R.id.menuCollection){
-            title.setTitleText("我的收藏");
-            JZVideoPlayer.releaseAllVideos();
-            setChioceItem(5);
+            setChioceItem(1);
         }else if (id == R.id.menuAbout) {
             JZVideoPlayer.releaseAllVideos();
             GoActivity(AboutActivity.class);
@@ -199,15 +163,7 @@ public class MainActivity extends BaseActivity
                     transaction.show(newsFragment);
                 }
                 break;
-            case 4:
-                if (wangyiFragment==null){
-                    wangyiFragment=new NewsFragment();
-                    transaction.add(R.id.flContent,wangyiFragment,Constants.WANGYI_FRAGMENT);
-                }else {
-                    transaction.show(wangyiFragment);
-                }
-                break;
-            case 3:
+            case 1:
                 if (zhiHuFragment == null) {
                     zhiHuFragment = new ZhiHuFragment();
                     transaction.add(R.id.flContent, zhiHuFragment, Constants.READ_FRAGMENT);
@@ -215,28 +171,12 @@ public class MainActivity extends BaseActivity
                     transaction.show(zhiHuFragment);
                 }
                 break;
-            case 1:
+            case 2:
                 if (videoFragment == null) {
                     videoFragment = new VideoFragment();
                     transaction.add(R.id.flContent, videoFragment, Constants.VIDEO_FRAGMENT);
                 } else {
                     transaction.show(videoFragment);
-                }
-                break;
-            case 2:
-                if (picFragment == null) {
-                    picFragment = new PicFragment();
-                    transaction.add(R.id.flContent, picFragment, Constants.PICTURE_FRAGMENT);
-                } else {
-                    transaction.show(picFragment);
-                }
-                break;
-            case 5:
-                if (collectionFragment==null){
-                    collectionFragment=new CollectionFragment();
-                    transaction.add(R.id.flContent,collectionFragment,Constants.COLLECTION_FRAGMENT);
-                }else {
-                    transaction.show(collectionFragment);
                 }
                 break;
         }
@@ -250,17 +190,8 @@ public class MainActivity extends BaseActivity
         if (videoFragment != null) {
             transaction.hide(videoFragment);
         }
-        if (picFragment != null) {
-            transaction.hide(picFragment);
-        }
         if (zhiHuFragment != null) {
             transaction.hide(zhiHuFragment);
-        }
-        if (wangyiFragment!=null){
-            transaction.hide(wangyiFragment);
-        }
-        if (collectionFragment!=null){
-            transaction.hide(collectionFragment);
         }
     }
 

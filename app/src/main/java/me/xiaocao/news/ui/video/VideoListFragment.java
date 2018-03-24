@@ -1,6 +1,7 @@
 package me.xiaocao.news.ui.video;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -17,27 +18,40 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerManager;
 import cn.jzvd.JZVideoPlayerStandard;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+import me.xiaocao.news.app.Api;
+import me.xiaocao.news.app.ApiService;
 import me.xiaocao.news.app.Constants;
 import me.xiaocao.news.R;
+import me.xiaocao.news.model.ZhihuDetail;
 import me.xiaocao.news.ui.adapter.BaseListAdapter;
-import me.xiaocao.news.helper.PresenterFactory;
 import me.xiaocao.news.model.Video;
 import me.xiaocao.news.model.request.VideoRequest;
 import me.xiaocao.news.presenter.IVideoPresenter;
+import me.xiaocao.news.util.webview.WebUtils;
+import okhttp3.ResponseBody;
+import x.lib.http.retrofit.RetrofitUtil;
 import x.lib.ui.BaseEvent;
 import x.lib.ui.BaseFragment;
+import x.lib.utils.EventBusUtil;
 import x.lib.utils.GlideUtils;
+import x.lib.utils.JsonUtil;
+import x.lib.utils.ToastUtils;
 
-/** 
+/**
  * description: VideoListFragment
  * author: lijun
  * date: 17/8/27 下午2:57
-*/
+ */
 
 public class VideoListFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
@@ -45,7 +59,6 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     RecyclerView mRecycler;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout mSwipeRefresh;
-    private IVideoPresenter mPresenter;
 
     private List<Video> videoList = new ArrayList<>();
     private BaseListAdapter<Video> listAdapter;
@@ -62,11 +75,6 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    protected boolean isRegisterEventBus() {
-        return true;
     }
 
     @Override
@@ -94,7 +102,6 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
         });
         mRecycler.setAdapter(listAdapter);
         mSwipeRefresh.setOnRefreshListener(this);
-        mPresenter = PresenterFactory.getVideoListPresenter();
         listAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         listAdapter.setPreLoadNumber(1);
         listAdapter.setOnLoadMoreListener(this, mRecycler);
@@ -124,33 +131,6 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(BaseEvent event) {
-        if (event.id == getArguments().getString(Constants.VIDEO_ID)) {
-            Logger.e("打印了数据" + event.code);
-            switch (event.code) {
-                case BaseEvent.code_success:
-                    break;
-                case BaseEvent.code_refresh:
-                    limit += 20;
-                    mSwipeRefresh.setRefreshing(false);
-                    listAdapter.getData().clear();
-                    listAdapter.addData((List<Video>) event.data);
-                    break;
-                case BaseEvent.code_load:
-                    limit += 20;
-                    listAdapter.addData((List<Video>) event.data);
-                    listAdapter.loadMoreComplete();
-                    break;
-                case BaseEvent.code_err:
-                    mSwipeRefresh.setRefreshing(false);
-                    listAdapter.loadMoreFail();
-                    showErrNetWork(mRecycler, (String) event.data);
-                    break;
-            }
-        }
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -160,11 +140,49 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     public void onRefresh() {
         limit = 0;
         mSwipeRefresh.setRefreshing(true);
-        mPresenter.getVideoList(new VideoRequest().setLimit(limit).setId(getArguments().getString(Constants.VIDEO_ID)));
+        getData(new VideoRequest().setLimit(limit).setId(getArguments().getString(Constants.VIDEO_ID)));
     }
 
     @Override
     public void onLoadMoreRequested() {
-        mPresenter.getVideoList(new VideoRequest().setLimit(limit).setId(getArguments().getString(Constants.VIDEO_ID)));
+        getData(new VideoRequest().setLimit(limit).setId(getArguments().getString(Constants.VIDEO_ID)));
+    }
+
+    private void getData(final VideoRequest request) {
+        RetrofitUtil.getInstance()
+                .retrofit(Api.VIDEO_HOST)
+                .create(ApiService.class)
+                .getVideoList(request.url(), request.params())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<ResponseBody, List<Video>>() {
+                    @Override
+                    public List<Video> apply(@NonNull ResponseBody result) throws Exception {
+                        Map<String, List<Video>> map = JsonUtil.getJsonMap(result.string());
+                        return JsonUtil.jsonToList(map.get(request.id).toString(), Video.class);
+                    }
+                })
+                .subscribe(new Consumer<List<Video>>() {
+                    @Override
+                    public void accept(List<Video> videos) throws Exception {
+                        if (videos.isEmpty()) {
+                            listAdapter.loadMoreFail();
+                        } else {
+                            limit += 20;
+                            if (request.limit == 0) {
+                                mSwipeRefresh.setRefreshing(false);
+                                listAdapter.setNewData(videos);
+                            } else{
+                                listAdapter.addData(videos);
+                                listAdapter.loadMoreComplete();
+                            }
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        ToastUtils.showShort(activity, throwable.getMessage());
+                    }
+                });
     }
 }

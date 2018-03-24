@@ -21,6 +21,8 @@ public class HomeListContract {
 
         void getRefreshList(List<Jiemian.ListEntityX> list);
         void getLoadList(List<Jiemian.ListEntityX> list);
+
+        void goToDetail(String newsId,String newsTitle);
     }
 
     interface IModel {

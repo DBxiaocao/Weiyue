@@ -123,9 +123,12 @@
         <item>地产</item>
         <item>军事</item>
         <item>中国</item>
-        <item>视频</item>
-        <item>直播</item>
+
     </string-array>
+    <!--<item>视频</item>-->
+    <!--<item>直播</item>-->
+    <!--<item>video/timeline</item>-->
+    <!--<item>live/list</item>-->
     <string-array name="jiemian_channel_id">
         <item>cate/117/</item>
         <item>cate/643/</item>
@@ -135,8 +138,6 @@
         <item>cate/121/</item>
         <item>cate/293/</item>
         <item>cate/260/</item>
-        <item>video/timeline</item>
-        <item>live/list</item>
     </string-array>
 
     <string name="key_pic">图片</string>

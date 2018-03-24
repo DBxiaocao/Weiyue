@@ -12,6 +12,9 @@
     <include layout="@layout/include_title"/>
 
 
-    <include layout="@layout/include_recycler" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/flContent"/>
 
 </LinearLayout>

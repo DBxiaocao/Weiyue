@@ -2,8 +2,7 @@ package me.xiaocao.news.model.request;
 
 
 import me.xiaocao.news.app.Api;
-import x.http.request.GetRequest;
-import x.http.util.RequestUtil;
+import x.lib.http.request.get.GetRequest;
 
 /**
  * className: MainRequest
@@ -28,7 +27,7 @@ public class VideoRequest extends GetRequest {
 
     @Override
     public String url() {
-        return RequestUtil.getUtil().getUrl(Api.HTTP_VIDEO_HEAD + id + "/y/" + limit + Api.END_URL);
+        return new StringBuffer().append(Api.VIDEO_HOST).append(Api.HTTP_VIDEO_HEAD + id + "/y/" + limit + Api.END_URL).toString();
     }
 
 }

@@ -58,7 +58,10 @@
         <activity
             android:name=".ui.jiemian.detail.JiemianDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.jiemian.channel.OtherListActivity"></activity>
+        <activity android:name=".ui.jiemian.channel.OtherListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.zhihu.ZhiHuDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

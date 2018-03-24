@@ -18,7 +18,6 @@ import me.xiaocao.news.ui.adapter.BaseListAdapter;
 import me.xiaocao.news.app.Constants;
 import me.xiaocao.news.model.Zhihu;
 import me.xiaocao.news.model.request.ZhihuListRequest;
-import me.xiaocao.news.ui.read.ReadDetailActivity;
 import x.lib.ui.BaseMvpFragment;
 import x.lib.utils.GlideUtils;
 import x.lib.utils.StringUtils;
@@ -80,7 +79,7 @@ public class ZhiHuFragment extends BaseMvpFragment<ZhiHuPresenterImpl> implement
                 bundle.putString(Constants.KEY_READ_TITLE, listAdapter.getItem(position).getTitle());
                 bundle.putInt(Constants.KEY_READ_TYPE, 0);
                 bundle.putString(Constants.KEY_READ_URL, listAdapter.getItem(position).getId() + "");
-                GoActivity(ReadDetailActivity.class, bundle);
+                GoActivity(ZhiHuDetailActivity.class, bundle);
             }
         });
     }

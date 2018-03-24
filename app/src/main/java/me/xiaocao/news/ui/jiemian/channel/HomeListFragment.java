@@ -41,6 +41,7 @@ public class HomeListFragment extends BaseMvpFragment<HomeListPresenter> impleme
     SwipeRefreshLayout swipeRefresh;
     private HomeListAdapter adapter;
     private BannerView bannerView;
+    private View headView;
     private int page = 2;
     private BannerBaseAdapter<Jiemian.CarouselEntity> bannerAdapter;
 
@@ -66,7 +67,7 @@ public class HomeListFragment extends BaseMvpFragment<HomeListPresenter> impleme
         adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         adapter.setPreLoadNumber(1);
         swipeRefresh.setOnRefreshListener(this);
-        View headView = LayoutInflater.from(activity).inflate(R.layout.headview_other_banner, null);
+         headView= LayoutInflater.from(activity).inflate(R.layout.headview_other_banner, null);
         bannerView = headView.findViewById(R.id.banner);
         bannerAdapter = new BannerBaseAdapter<Jiemian.CarouselEntity>(activity) {
             @Override
@@ -81,36 +82,21 @@ public class HomeListFragment extends BaseMvpFragment<HomeListPresenter> impleme
                 setText(R.id.pageText, data.getArticle().getAr_tl());
             }
         };
+        bannerAdapter.setOnPageTouchListener(new BannerBaseAdapter.OnPageTouchListener<Jiemian.CarouselEntity>() {
+            @Override
+            public void onPageClick(int position, Jiemian.CarouselEntity bean) {
+                if (bean.getType().equals("article")){
+                    goToDetail(bean.getArticle().getAr_id(),bean.getArticle().getAr_tl());
+                }
+            }
+        });
         bannerView.setAdapter(bannerAdapter);
-        adapter.addHeaderView(headView);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapters, View view, int position) {
-                switch (adapter.getItem(position).getItemType()) {
-                    case Jiemian.ListEntityX.Type_kuaixun_tpl:
-                        ToastUtils.showShort(activity, "Type_kuaixun_tpl");
-                        break;
-                    case Jiemian.ListEntityX.Type_xiaotu:
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constants.NEWS_Title, adapter.getItem(position).getArticle().getAr_tl());
-                        bundle.putString(Constants.NEWS_ID, adapter.getItem(position).getArticle().getAr_id());
-                        GoActivity(JiemianDetailActivity.class, bundle);
-                        break;
-                    case Jiemian.ListEntityX.Type_pindao_hengla_tpl:
-                        ToastUtils.showShort(activity, "Type_pindao_hengla_tpl");
-                        break;
-                    case Jiemian.ListEntityX.Type_banner_img:
-                        ToastUtils.showShort(activity, "Type_banner_img");
-                        break;
-                    case Jiemian.ListEntityX.Type_h5_hengla_tpl:
-                        ToastUtils.showShort(activity, "Type_h5_hengla_tpl");
-                        break;
-                    case Jiemian.ListEntityX.Type_zhuanti_lunbo_tpl:
-                        ToastUtils.showShort(activity, "Type_zhuanti_lunbo_tpl");
-                        break;
-                    case Jiemian.ListEntityX.Type_shipin_hengla_tpl:
-                        ToastUtils.showShort(activity, "Type_shipin_hengla_tpl");
-                        break;
+                if (adapter.getItem(position).getItemType()== Jiemian.ListEntityX.Type_xiaotu){
+                    Jiemian.ListEntityX.ArticleEntityX bean=adapter.getItem(position).getArticle();
+                    goToDetail(bean.getAr_id(),bean.getAr_tl());
                 }
             }
         });
@@ -133,6 +119,7 @@ public class HomeListFragment extends BaseMvpFragment<HomeListPresenter> impleme
     @Override
     public void getCarousel(List<Jiemian.CarouselEntity> list) {
         bannerAdapter.setData(list);
+        adapter.addHeaderView(headView);
     }
 
     public void getRefreshList(List<Jiemian.ListEntityX> list) {
@@ -146,6 +133,14 @@ public class HomeListFragment extends BaseMvpFragment<HomeListPresenter> impleme
         adapter.addData(list);
         page++;
         adapter.loadMoreComplete();
+    }
+
+    @Override
+    public void goToDetail(String newsId, String newsTitle) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.NEWS_Title,newsTitle );
+        bundle.putString(Constants.NEWS_ID,newsId);
+        GoActivity(JiemianDetailActivity.class, bundle);
     }
 
     @Override

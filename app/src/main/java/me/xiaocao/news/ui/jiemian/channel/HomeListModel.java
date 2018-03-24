@@ -33,6 +33,7 @@ public class HomeListModel implements HomeListContract.IModel {
     private final static String h5_hengla_tpl = "h5_hengla_tpl";
     private final static String zhuanti_lunbo_tpl = "zhuanti_lunbo_tpl";
     private final static String show_img_top = "show_img_top";
+    private final static String show_img_top_intro = "show_img_top_intro";
     private final static String show_img_right = "show_img_right";
     private final static String shipin_hengla_tpl = "shipin_hengla_tpl";
 
@@ -72,7 +73,8 @@ public class HomeListModel implements HomeListContract.IModel {
                             List<Jiemian.ListEntityX> list=new ArrayList<>();
                             for (Jiemian.ListEntityX entityX : jiemian.getResult().getList()) {
                                 if (null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_top)
-                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_right)){
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_right)
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_top_intro)){
                                     list.add(entityX);
                                 }
                             }

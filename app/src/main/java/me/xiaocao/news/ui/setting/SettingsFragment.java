@@ -39,7 +39,7 @@ import x.lib.utils.ThreadHelperFactory;
 
 public class SettingsFragment extends PreferenceFragment {
     private int checkPosition;
-    private int txtSizeSelect;
+//    private int txtSizeSelect;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,29 +82,29 @@ public class SettingsFragment extends PreferenceFragment {
         });
         final Preference versionPref = getPreferenceManager().findPreference(getString(R.string.key_version));
         versionPref.setSummary(AppUtils.getAppVersionName());
-        final Preference textSizePref = getPreferenceScreen().findPreference(getString(R.string.key_text_size));
-        txtSizeSelect = SPUtils.getInstance().getInt(BaseActivity.isTextSize, 0);
-        textSizePref.setSummary("当前字体大小:" + getResources().getStringArray(R.array.text_size)[txtSizeSelect]);
-        textSizePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                DialogUtil.showDialog(getActivity()).setTitle("字体大小").setSingleChoiceItems(getResources().getStringArray(R.array.text_size), txtSizeSelect, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        txtSizeSelect = i;
-                    }
-                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        SPUtils.getInstance().put(BaseActivity.isTextSize, txtSizeSelect);
-                        textSizePref.setSummary("当前字体大小:" + getResources().getStringArray(R.array.text_size)[txtSizeSelect]);
-                        dialogInterface.dismiss();
-                        onKillStartApp();
-                    }
-                }).create().show();
-                return true;
-            }
-        });
+//        final Preference textSizePref = getPreferenceScreen().findPreference(getString(R.string.key_text_size));
+//        txtSizeSelect = SPUtils.getInstance().getInt(BaseActivity.isTextSize, 0);
+//        textSizePref.setSummary("当前字体大小:" + getResources().getStringArray(R.array.text_size)[txtSizeSelect]);
+//        textSizePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            @Override
+//            public boolean onPreferenceClick(Preference preference) {
+//                DialogUtil.showDialog(getActivity()).setTitle("字体大小").setSingleChoiceItems(getResources().getStringArray(R.array.text_size), txtSizeSelect, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        txtSizeSelect = i;
+//                    }
+//                }).setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        SPUtils.getInstance().put(BaseActivity.isTextSize, txtSizeSelect);
+//                        textSizePref.setSummary("当前字体大小:" + getResources().getStringArray(R.array.text_size)[txtSizeSelect]);
+//                        dialogInterface.dismiss();
+//                        onKillStartApp();
+//                    }
+//                }).create().show();
+//                return true;
+//            }
+//        });
 
         final Preference themePref = getPreferenceManager().findPreference(getString(R.string.key_theme));
         themePref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

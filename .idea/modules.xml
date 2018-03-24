@@ -3,9 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Weiyue.iml" filepath="$PROJECT_DIR$/Weiyue.iml" />
+      <module fileurl="file://D:\lj_work_demo\Weiyue\Weiyue.iml" filepath="D:\lj_work_demo\Weiyue\Weiyue.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\lj_work_demo\Weiyue\app\app.iml" filepath="D:\lj_work_demo\Weiyue\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseLib/baseLib.iml" filepath="$PROJECT_DIR$/baseLib/baseLib.iml" />
+      <module fileurl="file://D:\lj_work_demo\Weiyue\baseLib\baseLib.iml" filepath="D:\lj_work_demo\Weiyue\baseLib\baseLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/http/http.iml" filepath="$PROJECT_DIR$/http/http.iml" />
+      <module fileurl="file://D:\lj_work_demo\Weiyue\http\http.iml" filepath="D:\lj_work_demo\Weiyue\http\http.iml" />
     </modules>
   </component>
 </project>

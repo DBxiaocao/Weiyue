@@ -1,8 +1,10 @@
 package x.lib.utils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
@@ -66,7 +68,7 @@ public class JsonUtil {
      * @param <T>
      * @return
      */
-    public <T> List<T> jsonToList(String json, Class<T> cls) {
+    public static  <T> List<T> jsonToList(String json, Class<T> cls) {
         Gson gson = new Gson();
         List<T> list = new ArrayList<T>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
@@ -104,4 +106,38 @@ public class JsonUtil {
         return map;
     }
 
+    /**
+     * 根据key值从json获取对应的数据.
+     *
+     * @param jsonStr json Object数据
+     * @param key     键值
+     * @return
+     */
+    public static String getString(String jsonStr, String key) {
+        return getJsonElement(jsonStr, key).getAsString();
+    }
+
+    /**
+     * 根据key值从json获取对应的数据.
+     *
+     * @param jsonStr json Object数据
+     * @param key     键值
+     * @return
+     */
+    public static JsonElement getJsonElement(String jsonStr, String key) {
+        JsonParser parser = new JsonParser();
+        JsonObject jsonObject = parser.parse(jsonStr).getAsJsonObject();
+        return jsonObject.get(key);
+    }
+
+    /**
+     * json字符串转化为map
+     *
+     * @param s
+     * @return
+     */
+    public static Map getJsonMap(String s) {
+        Map m = JSONObject.parseObject(s);
+        return m;
+    }
 }

@@ -5,27 +5,27 @@
         <item
             android:id="@+id/menuNews"
             android:icon="@drawable/ic_public_black_24dp"
-            android:title="新闻"/>
-        <item
-            android:id="@+id/menuWangyi"
-            android:icon="@drawable/ic_public_black_24dp"
-            android:title="网易"/>
+            android:title="界面新闻"/>
+        <!--<item-->
+            <!--android:id="@+id/menuWangyi"-->
+            <!--android:icon="@drawable/ic_public_black_24dp"-->
+            <!--android:title="网易"/>-->
         <item
             android:id="@+id/menuRead"
             android:icon="@drawable/ic_public_black_24dp"
-            android:title="阅读"/>
+            android:title="知乎日报"/>
         <item
             android:id="@+id/menuVideo"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="视频" />
-        <item
-            android:id="@+id/menuPic"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="妹子" />
-        <item
-            android:id="@+id/menuCollection"
-            android:icon="@drawable/ic_star_border_black_24dp"
-            android:title="收藏" />
+            android:title="网易视频" />
+        <!--<item-->
+            <!--android:id="@+id/menuPic"-->
+            <!--android:icon="@drawable/ic_menu_gallery"-->
+            <!--android:title="妹子" />-->
+        <!--<item-->
+            <!--android:id="@+id/menuCollection"-->
+            <!--android:icon="@drawable/ic_star_border_black_24dp"-->
+            <!--android:title="收藏" />-->
     </group>
     <item android:title="其它">
         <menu>
