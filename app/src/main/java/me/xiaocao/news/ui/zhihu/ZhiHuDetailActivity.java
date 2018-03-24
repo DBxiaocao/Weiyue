@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 
-import com.google.gson.JsonElement;
-
-import java.util.List;
-
 import butterknife.Bind;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -19,14 +15,13 @@ import me.xiaocao.news.app.ApiService;
 import me.xiaocao.news.app.Constants;
 import me.xiaocao.news.model.ZhihuDetail;
 import me.xiaocao.news.model.request.ZhiHuDetailRequest;
-import me.xiaocao.news.ui.pic.PhotoActivity;
+import me.xiaocao.news.ui.PhotoActivity;
 import me.xiaocao.news.util.webview.JavaScriptFunction;
 import me.xiaocao.news.util.webview.MWebView;
 import me.xiaocao.news.util.webview.WebUtils;
 import x.lib.http.retrofit.RetrofitUtil;
 import x.lib.ui.BaseActivity;
 import x.lib.ui.TitleView;
-import x.lib.utils.JsonUtil;
 import x.lib.utils.NetUtils;
 import x.lib.utils.ToastUtils;
 

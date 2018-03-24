@@ -1,4 +1,4 @@
-package me.xiaocao.news.ui.pic;
+package me.xiaocao.news.ui;
 
 
 import android.app.ProgressDialog;

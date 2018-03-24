@@ -5,11 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import org.jsoup.nodes.Document;
 
@@ -17,7 +13,7 @@ import butterknife.Bind;
 import me.xiaocao.news.R;
 import me.xiaocao.news.app.Api;
 import me.xiaocao.news.app.Constants;
-import me.xiaocao.news.ui.pic.PhotoActivity;
+import me.xiaocao.news.ui.PhotoActivity;
 import me.xiaocao.news.util.webview.JavaScriptFunction;
 import me.xiaocao.news.util.webview.MWebView;
 import me.xiaocao.news.util.webview.WebUtils;

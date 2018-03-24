@@ -24,7 +24,7 @@
             android:name=".ui.news.NewsDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.pic.PhotoActivity"
+            android:name=".ui.PhotoActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.setting.SettingsActivity"
