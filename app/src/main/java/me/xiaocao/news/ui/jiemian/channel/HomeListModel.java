@@ -36,6 +36,7 @@ public class HomeListModel implements HomeListContract.IModel {
     private final static String show_img_top_intro = "show_img_top_intro";
     private final static String show_img_right = "show_img_right";
     private final static String shipin_hengla_tpl = "shipin_hengla_tpl";
+    private final static String wutu_tpl="wutu_tpl";
 
     @Override
     public Observable<Jiemian> getHomelist(final GetRequest request) {
@@ -62,7 +63,9 @@ public class HomeListModel implements HomeListContract.IModel {
                                 if (null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(kuaixun_tpl)
                                         || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(xiaotu)
                                         || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(pindao_hengla_tpl)
-                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(shipin_hengla_tpl)) {//不取type 为ads的值,i_show_tpl为h5_hengla_tpl,zhuanti_lunbo_tpl
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(shipin_hengla_tpl)
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(wutu_tpl)
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_top_intro)) {//不取type 为ads的值,i_show_tpl为h5_hengla_tpl,zhuanti_lunbo_tpl
                                     list.add(entityX);
                                 }
                             }
@@ -74,7 +77,8 @@ public class HomeListModel implements HomeListContract.IModel {
                             for (Jiemian.ListEntityX entityX : jiemian.getResult().getList()) {
                                 if (null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_top)
                                         || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_right)
-                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_top_intro)){
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(show_img_top_intro)
+                                        || null != entityX.getI_show_tpl() && entityX.getI_show_tpl().equals(wutu_tpl)){
                                     list.add(entityX);
                                 }
                             }

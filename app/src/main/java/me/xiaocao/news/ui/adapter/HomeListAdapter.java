@@ -92,6 +92,7 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<Jiemian.ListEntit
                         Intent intent=new Intent();
                         intent.setClass(context, OtherListActivity.class);
                         intent.putExtra(Constants.JIEMIAN_NEWS_ID,pindaoAdapter.getItem(position).getArticle().getAr_channel_url());
+                        intent.putExtra(Constants.JIEMIAN_NEWS_TITLE,pindaoAdapter.getItem(position).getArticle().getAr_channel_name());
                         context.startActivity(intent);
                     }
                 });

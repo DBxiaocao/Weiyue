@@ -1,6 +1,7 @@
 package me.xiaocao.news.ui.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -12,6 +13,7 @@ import me.xiaocao.news.R;
 import me.xiaocao.news.model.Jiemian;
 import x.lib.utils.DateUtils;
 import x.lib.utils.GlideUtils;
+import x.lib.utils.StringUtils;
 
 /**
  * description: OtherListAdapter
@@ -40,7 +42,13 @@ public class OtherListAdapter extends BaseMultiItemQuickAdapter<Jiemian.ListEnti
                 helper.setText(R.id.tvNewsTime, DateUtils.timeStampToStr(Long.valueOf(item.getArticle().getAr_pt())));
                 break;
             case Jiemian.ListEntityX.Type_show_img_right:
-                GlideUtils.loadImageView(context, item.getArticle().getAr_image(), (ImageView) helper.getView(R.id.ivNews));
+                ImageView arImage=helper.getView(R.id.ivNews);
+                if (StringUtils.isEmpty(item.getArticle().getAr_image())){
+                    arImage.setVisibility(View.GONE);
+                }else {
+                    GlideUtils.loadImageView(context, item.getArticle().getAr_image(), arImage);
+                    arImage.setVisibility(View.VISIBLE);
+                }
                 helper.setText(R.id.tvNewsTitle, item.getArticle().getAr_tl());
                 helper.setText(R.id.tvNewsSource,item.getArticle().getAr_an());
                 helper.setText(R.id.tvNewsTime, DateUtils.timeStampToStr(Long.valueOf(item.getArticle().getAr_pt())));

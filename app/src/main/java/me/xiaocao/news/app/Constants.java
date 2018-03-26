@@ -40,5 +40,6 @@ public class Constants {
 
     //界面新闻
     public static final String JIEMIAN_NEWS_ID="jiemian.news.id";
+    public static final String JIEMIAN_NEWS_TITLE="jiemian.news.title";
 
 }

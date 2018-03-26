@@ -40,12 +40,17 @@ public class OtherListActivity extends BaseActivity  {
     protected void initTitle() {
         TitleView title=new TitleView(activity,findViewById(R.id.toolbar));
         title.setBack(activity);
-        title.setTitleText("");
+        title.setTitleText(getIntent().getStringExtra(Constants.JIEMIAN_NEWS_TITLE));
     }
 
     @Override
     protected void initInstance() {
         FragmentUtils.addFragment(getSupportFragmentManager(),OtherListFragment.newInstance(getIntent().getExtras().getString(Constants.JIEMIAN_NEWS_ID)),R.id.flContent);
+    }
+
+    @Override
+    protected boolean isSupportSwipeBack() {
+        return true;
     }
 
     @Override

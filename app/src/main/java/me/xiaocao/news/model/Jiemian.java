@@ -363,6 +363,7 @@ public class Jiemian {
         private final static String show_img_top_intro="show_img_top_intro";
         private final static String show_img_right = "show_img_right";
         private final static String shipin_hengla_tpl = "shipin_hengla_tpl";
+        private final static String wutu_tpl="wutu_tpl";
 
         @Override
         public int getItemType() {
@@ -388,6 +389,8 @@ public class Jiemian {
                         return Type_show_img_right;
                     case shipin_hengla_tpl:
                         return Type_shipin_hengla_tpl;
+                    case wutu_tpl:
+                        return Type_show_img_right;
                     default:
                         return Type_xiaotu;
                 }
