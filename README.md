@@ -9,38 +9,30 @@
 
 
 ### 用到的开源库有：
-    - compile 'com.android.support:appcompat-v7:26.1.0'
-    - compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    - compile 'de.hdodenhof:circleimageview:2.1.0'
-    - compile('cn.jzvd:jiaozivideoplayer:6.2.3') {
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-    }
-    testCompile 'junit:junit:4.12'
-//    compile project(':http')
-    - compile project(':baseLib')
-    - compile 'org.greenrobot:greendao:3.2.2'
-    - compile 'com.android.support:cardview-v7:26.1.0'
-    - compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    - compile 'com.tencent.bugly:crashreport:2.6.5'
-    - compile('com.just.agentweb:agentweb:2.0.0') {
-        exclude group: 'com.android.support', module: 'appcompat-v7'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-    }
-    - api 'com.jakewharton:butterknife:7.0.0'
-    - api 'com.github.bumptech.glide:glide:3.7.0'
-    - api 'org.greenrobot:eventbus:3.1.1'
-    - api 'com.squareup.okhttp3:okhttp:3.9.1'
-    - api 'com.squareup.retrofit2:retrofit:2.3.0'
-    - api 'com.squareup.retrofit2:retrofit-adapters:2.3.0'
-    - api 'com.squareup.retrofit2:converter-gson:2.3.0'
-    - api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    - api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-    - api 'io.reactivex.rxjava2:rxjava:2.1.8'
-    - api 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    - api 'com.orhanobut:logger:2.1.1'
-    - api 'com.alibaba:fastjson:1.2.33'
-    - api 'org.jsoup:jsoup:1.10.3'
+ - compile 'com.android.support:appcompat-v7:26.1.0'
+ - compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+ - compile 'de.hdodenhof:circleimageview:2.1.0'
+ - compile 'cn.jzvd:jiaozivideoplayer:6.2.3'
+ - compile project(':baseLib')
+ - compile 'org.greenrobot:greendao:3.2.2'
+ - compile 'com.android.support:cardview-v7:26.1.0'
+ - compile 'com.github.chrisbanes.photoview:library:1.2.4'
+ - compile 'com.tencent.bugly:crashreport:2.6.5'
+ - compile 'com.just.agentweb:agentweb:2.0.0'
+ - api 'com.jakewharton:butterknife:7.0.0'
+ - api 'com.github.bumptech.glide:glide:3.7.0'
+ - api 'org.greenrobot:eventbus:3.1.1'
+ - api 'com.squareup.okhttp3:okhttp:3.9.1'
+ - api 'com.squareup.retrofit2:retrofit:2.3.0'
+ - api 'com.squareup.retrofit2:retrofit-adapters:2.3.0'
+ - api 'com.squareup.retrofit2:converter-gson:2.3.0'
+ - api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+ - api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+ - api 'io.reactivex.rxjava2:rxjava:2.1.8'
+ - api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+ - api 'com.orhanobut:logger:2.1.1'
+ - api 'com.alibaba:fastjson:1.2.33'
+ - api 'org.jsoup:jsoup:1.10.3'
 
 ### 声明
 如果感觉对你有帮助也欢迎点个 star、fork，本项目仅做学习交流使用，API 数据内容所有权归原作公司所有，请勿用于其他用途
