@@ -1,4 +1,4 @@
-微阅是一款集新闻，视频和妹子的阅读类软件，基于 Material Design + RxJava2.x + Retrofit2.x + Glide＋MVP，基本涵盖了当前 Android 端开发最常用的主流框架。
+简洁新闻是一款集界面新闻，知乎日报，网易视频的阅读类软件，基于 Material Design + RxJava2.x + Retrofit2.x + Glide＋MVP，基本涵盖了当前 Android 端开发最常用的主流框架。
 
 ### 效果图
 ![界面新闻](https://github.com/DBxiaocao/Weiyue/blob/master/screenshot/1.png)
@@ -8,7 +8,7 @@
 
 
 ### 目前模块包括：
-文章，视频，美图，可本地收藏分享
+界面新闻，知乎日报，网易视频，三大模块
 
 
 ### 用到的开源库有：
