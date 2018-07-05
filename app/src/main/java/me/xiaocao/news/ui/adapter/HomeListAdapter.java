@@ -118,13 +118,17 @@ public class HomeListAdapter extends BaseMultiItemQuickAdapter<Jiemian.ListEntit
                     public void convertView(BaseViewHolder helper, Jiemian.ListEntityX.ListEntity item) {
                         GlideUtils.loadImageView(context, item.getVideo().getV_image(), (ImageView) helper.getView(R.id.ivNews));
                         helper.setText(R.id.tvNewsTitle, item.getVideo().getV_tl());
-                        helper.setText(R.id.tvNewsId, item.getAuthor().getName());
+                        if (item.getAuthor()!=null){
+                            helper.setText(R.id.tvNewsId, item.getAuthor().getName());
+                        }else {
+                            helper.setText(R.id.tvNewsId, "");
+                        }
                     }
                 });
                 videAdapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        ToastUtils.showShort(context,videAdapter.getItem(position).getAuthor().getUid());
+
                     }
                 });
                 videoRecycler.setAdapter(videAdapter);

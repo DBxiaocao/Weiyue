@@ -28,7 +28,7 @@ public class HomeListPresenter extends BasePresenterImpl<HomeListContract.IView>
 
     @Override
     public void loadList(GetRequest request) {
-        iModel.getHomelist(request)
+        addDisposable(iModel.getHomelist(request)
                 .subscribe(new Consumer<Jiemian>() {
                     @Override
                     public void accept(Jiemian jiemian) throws Exception {
@@ -48,12 +48,12 @@ public class HomeListPresenter extends BasePresenterImpl<HomeListContract.IView>
                         if (isAttachView())
                             getView().onErrMsg(throwable.getMessage());
                     }
-                });
+                }));
     }
 
     @Override
     public void refreshList(GetRequest request) {
-        iModel.getHomelist(request)
+        addDisposable(iModel.getHomelist(request)
                 .subscribe(new Consumer<Jiemian>() {
                     @Override
                     public void accept(Jiemian jiemian) throws Exception {
@@ -83,6 +83,6 @@ public class HomeListPresenter extends BasePresenterImpl<HomeListContract.IView>
                         if (isAttachView())
                             getView().onErrMsg(throwable.getMessage());
                     }
-                });
+                }));
     }
 }

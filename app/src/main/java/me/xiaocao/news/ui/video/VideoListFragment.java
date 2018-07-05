@@ -25,6 +25,7 @@ import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerManager;
 import cn.jzvd.JZVideoPlayerStandard;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -54,6 +55,7 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     RecyclerView mRecycler;
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout mSwipeRefresh;
+    private Disposable disposable;
 
     private List<Video> videoList = new ArrayList<>();
     private BaseListAdapter<Video> listAdapter;
@@ -144,7 +146,7 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
     }
 
     private void getData(final VideoRequest request) {
-        RetrofitUtil.getInstance()
+         disposable = RetrofitUtil.getInstance()
                 .retrofit(Api.VIDEO_HOST)
                 .create(ApiService.class)
                 .getVideoList(request.url(), request.params())
@@ -167,7 +169,7 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
                             if (request.limit == 0) {
                                 mSwipeRefresh.setRefreshing(false);
                                 listAdapter.setNewData(videos);
-                            } else{
+                            } else {
                                 listAdapter.addData(videos);
                                 listAdapter.loadMoreComplete();
                             }
@@ -179,5 +181,11 @@ public class VideoListFragment extends BaseFragment implements SwipeRefreshLayou
                         ToastUtils.showShort(activity, throwable.getMessage());
                     }
                 });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
     }
 }
